@@ -1,4 +1,4 @@
-# micro-ROS for STCubeMX
+# micro-ROS for STM32CubeMX
 
 This tool aims to ease the micro-ROS integration in a STM32CubeMX project.
 
