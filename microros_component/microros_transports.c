@@ -37,7 +37,7 @@ size_t freertos_serial_write(struct uxrCustomTransport* transport, uint8_t * buf
     if (uart->gState == HAL_UART_STATE_READY){
         ret = HAL_UART_Transmit_DMA(uart, buf, len);
         while (ret == HAL_OK && uart->gState != HAL_UART_STATE_READY){
-        osDelay(1);
+            osDelay(1);
         }
 
         return (ret == HAL_OK) ? len : 0;
@@ -49,10 +49,16 @@ size_t freertos_serial_write(struct uxrCustomTransport* transport, uint8_t * buf
 size_t freertos_serial_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err){
     UART_HandleTypeDef * uart = (UART_HandleTypeDef*) transport->args;
 
-    __disable_irq();
-    dma_tail = UART_DMA_BUFFER_SIZE - __HAL_DMA_GET_COUNTER(uart->hdmarx);
-    __enable_irq();
-
+    int ms_used = 0;
+    do
+    {
+        __disable_irq();
+        dma_tail = UART_DMA_BUFFER_SIZE - __HAL_DMA_GET_COUNTER(uart->hdmarx);
+        __enable_irq();
+        ms_used++;
+        osDelay(portTICK_RATE_MS);
+    } while (dma_head == dma_tail && ms_used < timeout);
+    
     size_t wrote = 0;
     while ((dma_head != dma_tail) && (wrote < len)){
         buf[wrote] = dma_buffer[dma_head];

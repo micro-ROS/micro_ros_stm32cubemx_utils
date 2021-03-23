@@ -5,7 +5,14 @@ This tool aims to ease the micro-ROS integration in a STM32CubeMX project.
 ## How to use it
 
 1. In the `root` folder, generate your STM32CubeMX project. A sample project can be generated with the provided `sample_project.ioc`.
-2. Modify the generated `Makefile` to include the following code before the `build the application` section:
+2. Make sure that your STM32CubeMX project is using a `Makefile` toolchain under `Project Manager -> Project`
+3. Make sure that if you are using FreeRTOS, the micro-ROS task has more than 10 kB of stack.
+4. To use the default UART transport based on DMA:
+   - Enable USART in your STM32CubeMX 
+   - For the selected USART, enable DMA for Tx and Rx under `DMA Settings`
+   - Set the DMA priotity to `Very High` for Tx and Rx
+   - For the selected, enable `global interrupt` under `NVIC Settings`
+5. Modify the generated `Makefile` to include the following code before the `build the application` section:
 
 ```makefile
 #######################################
