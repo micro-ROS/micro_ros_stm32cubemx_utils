@@ -11,6 +11,7 @@ This tool aims to ease the micro-ROS integration in a STM32CubeMX project.
    - Enable USART in your STM32CubeMX 
    - For the selected USART, enable DMA for Tx and Rx under `DMA Settings`
    - Set the DMA priotity to `Very High` for Tx and Rx
+   - Set the DMA mode to `Circular` for Rx
    - For the selected, enable `global interrupt` under `NVIC Settings`
 5. Modify the generated `Makefile` to include the following code before the `build the application` section:
 
