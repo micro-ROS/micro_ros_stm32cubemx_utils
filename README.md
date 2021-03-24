@@ -6,14 +6,14 @@ This tool aims to ease the micro-ROS integration in a STM32CubeMX project.
 
 1. In the `root` folder, generate your STM32CubeMX project. A sample project can be generated with the provided `sample_project.ioc`.
 2. Make sure that your STM32CubeMX project is using a `Makefile` toolchain under `Project Manager -> Project`
-3. Make sure that if you are using FreeRTOS, the micro-ROS task has more than 10 kB of stack.
+3. Make sure that if you are using FreeRTOS, the micro-ROS task **has more than 10 kB of stack**.
 4. To use the default UART transport based on DMA:
    - Enable USART in your STM32CubeMX 
    - For the selected USART, enable DMA for Tx and Rx under `DMA Settings`
    - Set the DMA priotity to `Very High` for Tx and Rx
    - Set the DMA mode to `Circular` for Rx
    - For the selected, enable `global interrupt` under `NVIC Settings`
-5. Modify the generated `Makefile` to include the following code before the `build the application` section:
+5. Modify the generated `Makefile` to include the following code **before the `build the application` section**:
 
 ```makefile
 #######################################
@@ -29,14 +29,15 @@ C_SOURCES := $(filter-out Middlewares/Third_Party/FreeRTOS/Source/portable/MemMa
 # Add micro-ROS utils
 C_SOURCES += microros_component/custom_memory_manager.c
 C_SOURCES += microros_component/microros_allocators.c
-C_SOURCES += microros_component/microros_transports.c
 C_SOURCES += microros_component/microros_time.c
+C_SOURCES += microros_component/microros_transports/dma_transport.c
+#C_SOURCES += microros_component/microros_transports/it_transport.c
 
 print_cflags:
 	@echo $(CFLAGS)
 ```
 
-3. Go to `microros_component` and execute the static library generation tool. Compiler flags will retrieved automatically from your `Makefile` and user will be prompted to check if they are correct.
+6. Go to `microros_component` and execute the static library generation tool. Compiler flags will retrieved automatically from your `Makefile` and user will be prompted to check if they are correct.
 
 <!-- 
 pushd microros_component
@@ -51,8 +52,8 @@ docker run -it --rm -v $(pwd)/../:/microros_library microros/micro_ros_cubemx_bu
 cd ..
 ```
 
-4. Modify your `main.c` to use micro-ROS. An example application can be found in `sample_main.c`.
-5. Continue your usual workflow building your project and flashing the binary:
+7. Modify your `main.c` to use micro-ROS. An example application can be found in `sample_main.c`.
+8. Continue your usual workflow building your project and flashing the binary:
 
 ```bash
 make -j$(nproc)
