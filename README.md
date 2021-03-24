@@ -6,13 +6,8 @@ This tool aims to ease the micro-ROS integration in a STM32CubeMX project.
 
 1. In the `root` folder, generate your STM32CubeMX project. A sample project can be generated with the provided `sample_project.ioc`.
 2. Make sure that your STM32CubeMX project is using a `Makefile` toolchain under `Project Manager -> Project`
-3. Make sure that if you are using FreeRTOS, the micro-ROS task **has more than 10 kB of stack**.
-4. To use the default UART transport based on DMA:
-   - Enable USART in your STM32CubeMX 
-   - For the selected USART, enable DMA for Tx and Rx under `DMA Settings`
-   - Set the DMA priotity to `Very High` for Tx and Rx
-   - Set the DMA mode to `Circular` for Rx
-   - For the selected, enable `global interrupt` under `NVIC Settings`
+3. Make sure that if you are using FreeRTOS, the micro-ROS task **has more than 10 kB of stack**: [Example](#Set-stack-size-for-micro-ROS-task)
+4. Configure the transport interface on the STM32CubeMX project, check the [Transport configuration](#Transport-configuration) section for instructions on the custom transports provided.
 5. Modify the generated `Makefile` to include the following code **before the `build the application` section**:
 
 ```makefile
@@ -30,8 +25,9 @@ C_SOURCES := $(filter-out Middlewares/Third_Party/FreeRTOS/Source/portable/MemMa
 C_SOURCES += microros_component/custom_memory_manager.c
 C_SOURCES += microros_component/microros_allocators.c
 C_SOURCES += microros_component/microros_time.c
+
+# Add custom transport implementation
 C_SOURCES += microros_component/microros_transports/dma_transport.c
-#C_SOURCES += microros_component/microros_transports/it_transport.c
 
 print_cflags:
 	@echo $(CFLAGS)
@@ -66,6 +62,35 @@ All the micro-ROS configuration can be done in `colcon.meta` file before step 3.
 ## Adding custom packages
 
 Note that folders added to `microros_component/extra_packages` and entries added to `microros_component/extra_packages/extra_packages.repos` will be taken into account by this build system.
+
+## Transport configuration
+
+Steps to configure the UART transport interface on STM32CubeMX:
+- Default UART transport based on DMA:
+   - Enable USART in your STM32CubeMX 
+   - For the selected USART, enable DMA for Tx and Rx under `DMA Settings`
+   - Set the DMA priotity to `Very High` for Tx and Rx
+   - Set the DMA mode to `Circular` for Rx: [Example](#Configure-UART-DMA-priority)
+   - For the selected, enable `global interrupt` under `NVIC Settings`: [Example](#Configure-UART-DMA-interrupt)
+
+
+- Alternative UART transport with interrupts:
+   - Enable USART or UART in your STM32CubeMX 
+   - For the selected USART, enable `global interrupt` under `NVIC Settings`: [Example](#Configure-UART-global-interrup)
+
+## Images
+
+### Set stack size for micro-ROS task  
+![Set freertos stack size](.images/Set_freertos_stack.jpg)
+
+### Configure UART DMA priority
+![Configure UART DMA priority](.images/Set_UART_DMA1.jpg)
+
+### Configure UART DMA interrupt
+![Configure UART DMA interrupt](.images/Set_UART_DMA_2.jpg)
+
+### Configure UART global interrupt
+![Configure UART interrupt](.images/Set_UART_IT.jpg)
 
 
 ## Purpose of the Project
