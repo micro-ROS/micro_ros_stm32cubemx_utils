@@ -80,7 +80,20 @@ Note that folders added to `microros_component/extra_packages` and entries added
 
 ## Using this package with STM32CubeIDE
 
-....
+micro-ROS precompiled library can be used in an SMT32CubeIDE but SMT32CubeIMX should be used for generating it.
+Once you have followed the steps in this first section:
+
+1. Add micro-ROS include directory. In `Project -> Settings -> C/C++ Build -> Settings -> MCU GCC Compiler -> Include paths` add `microros_component/include`
+2. Add the micro-ROS precompiled library. In `Project -> Settings -> C/C++ Build -> Settings -> MCU GCC Linker -> Libraries`
+      - add `microros_component` in `Library search path (-L)`
+      - add `microros` in `Libraries (-l)`
+3. Add the following source code files to your project:
+      - `microros_component/microros_time.c`
+      - `microros_component/microros_allocators.c`
+      - `microros_component/microros_custom_memory_manager.c`
+      - `microros_component/microros_transports/dma_transport.c` or your transport selection.
+4. Build and run your project
+
 ## Purpose of the Project
 
 This software is not ready for production use. It has neither been developed nor
