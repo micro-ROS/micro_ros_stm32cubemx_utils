@@ -18,19 +18,19 @@
 static uint8_t dma_buffer[UART_DMA_BUFFER_SIZE];
 static size_t dma_head = 0, dma_tail = 0;
 
-bool freertos_serial_open(struct uxrCustomTransport * transport){
+bool cubemx_transport_open(struct uxrCustomTransport * transport){
     UART_HandleTypeDef * uart = (UART_HandleTypeDef*) transport->args;
     HAL_UART_Receive_DMA(uart, dma_buffer, UART_DMA_BUFFER_SIZE);
     return true;
 }
 
-bool freertos_serial_close(struct uxrCustomTransport * transport){
+bool cubemx_transport_close(struct uxrCustomTransport * transport){
     UART_HandleTypeDef * uart = (UART_HandleTypeDef*) transport->args;
     HAL_UART_DMAStop(uart);
     return true;
 }
 
-size_t freertos_serial_write(struct uxrCustomTransport* transport, uint8_t * buf, size_t len, uint8_t * err){
+size_t cubemx_transport_write(struct uxrCustomTransport* transport, uint8_t * buf, size_t len, uint8_t * err){
     UART_HandleTypeDef * uart = (UART_HandleTypeDef*) transport->args;
 
     HAL_StatusTypeDef ret;
@@ -46,7 +46,7 @@ size_t freertos_serial_write(struct uxrCustomTransport* transport, uint8_t * buf
     }
 }
 
-size_t freertos_serial_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err){
+size_t cubemx_transport_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err){
     UART_HandleTypeDef * uart = (UART_HandleTypeDef*) transport->args;
 
     int ms_used = 0;

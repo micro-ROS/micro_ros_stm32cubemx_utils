@@ -354,10 +354,10 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-bool freertos_serial_open(struct uxrCustomTransport * transport);
-bool freertos_serial_close(struct uxrCustomTransport * transport);
-size_t freertos_serial_write(struct uxrCustomTransport* transport, const uint8_t * buf, size_t len, uint8_t * err);
-size_t freertos_serial_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err);
+bool cubemx_transport_open(struct uxrCustomTransport * transport);
+bool cubemx_transport_close(struct uxrCustomTransport * transport);
+size_t cubemx_transport_write(struct uxrCustomTransport* transport, const uint8_t * buf, size_t len, uint8_t * err);
+size_t cubemx_transport_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err);
 
 void * microros_allocate(size_t size, void * state);
 void microros_deallocate(void * pointer, void * state);
@@ -381,10 +381,10 @@ void StartDefaultTask(void *argument)
   rmw_uros_set_custom_transport(
     true,
     (void *) &huart3,
-    freertos_serial_open,
-    freertos_serial_close,
-    freertos_serial_write,
-    freertos_serial_read);
+    cubemx_transport_open,
+    cubemx_transport_close,
+    cubemx_transport_write,
+    cubemx_transport_read);
 
   rcl_allocator_t freeRTOS_allocator = rcutils_get_zero_initialized_allocator();
   freeRTOS_allocator.allocate = microros_allocate;

@@ -1,5 +1,5 @@
 /*
- * A custom implementation of pvPortMalloc() and vPortFree() with realloc and
+ * A custom implementation of pvPortMallocMicroROS() and vPortFreeMicroROS() with realloc and
  * calloc features based on FreeRTOS heap4.c.
  */
  
@@ -26,13 +26,7 @@ task.h is included from an application file. */
 #define heapBITS_PER_BYTE		( ( size_t ) 8 )
 
 /* Allocate the memory for the heap. */
-#if( configAPPLICATION_ALLOCATED_HEAP == 1 )
-	/* The application writer has already defined the array used for the RTOS
-	heap - probably so it can be placed in a special segment or address. */
-	extern uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
-#else
-	static uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
-#endif /* configAPPLICATION_ALLOCATED_HEAP */
+static uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
 
 /* Define the linked list structure.  This is used to link free blocks in order
 of their memory address. */
@@ -54,7 +48,7 @@ static void prvInsertBlockIntoFreeList( BlockLink_t *pxBlockToInsert );
 
 /*
  * Called automatically to setup the required heap structures the first time
- * pvPortMalloc() is called.
+ * pvPortMallocMicroROS() is called.
  */
 static void prvHeapInit( void );
 
@@ -80,7 +74,7 @@ static size_t xBlockAllocatedBit = 0;
 
 /*-----------------------------------------------------------*/
 
-void *pvPortMalloc( size_t xWantedSize )
+void *pvPortMallocMicroROS( size_t xWantedSize )
 {
 BlockLink_t *pxBlock, *pxPreviousBlock, *pxNewBlockLink;
 void *pvReturn = NULL;
@@ -230,7 +224,7 @@ void *pvReturn = NULL;
 }
 /*-----------------------------------------------------------*/
 
-void vPortFree( void *pv )
+void vPortFreeMicroROS( void *pv )
 {
 uint8_t *puc = ( uint8_t * ) pv;
 BlockLink_t *pxLink;
@@ -294,11 +288,11 @@ size_t getBlockSize( void *pv )
 }
 /*-----------------------------------------------------------*/
 
-void *pvPortRealloc( void *pv, size_t xWantedSize )
+void *pvPortReallocMicroROS( void *pv, size_t xWantedSize )
 {
 	vTaskSuspendAll();
 
-	void * newmem = pvPortMalloc(xWantedSize);
+	void * newmem = pvPortMallocMicroROS(xWantedSize);
 
 	uint8_t *puc = ( uint8_t * ) pv;
 	BlockLink_t *pxLink;
@@ -314,7 +308,7 @@ void *pvPortRealloc( void *pv, size_t xWantedSize )
   	while(count--)
     	*in_dest++ = *in_src++;
 
-	vPortFree(pv);
+	vPortFreeMicroROS(pv);
 
 	( void ) xTaskResumeAll();
 
@@ -322,12 +316,12 @@ void *pvPortRealloc( void *pv, size_t xWantedSize )
 }
 /*-----------------------------------------------------------*/
 
-void *pvPortCalloc( size_t num, size_t xWantedSize )
+void *pvPortCallocMicroROS( size_t num, size_t xWantedSize )
 {
 	vTaskSuspendAll();
 	size_t count = xWantedSize*num;
 
-	void * mem = pvPortMalloc(count);
+	void * mem = pvPortMallocMicroROS(count);
   	char *in_dest = (char*)mem;
 
   	while(count--)
@@ -338,19 +332,19 @@ void *pvPortCalloc( size_t num, size_t xWantedSize )
 }
 /*-----------------------------------------------------------*/
 
-size_t xPortGetFreeHeapSize( void )
+size_t xPortGetFreeHeapSizeMicroROS( void )
 {
 	return xFreeBytesRemaining;
 }
 /*-----------------------------------------------------------*/
 
-size_t xPortGetMinimumEverFreeHeapSize( void )
+size_t xPortGetMinimumEverFreeHeapSizeMicroROS( void )
 {
 	return xMinimumEverFreeBytesRemaining;
 }
 /*-----------------------------------------------------------*/
 
-void vPortInitialiseBlocks( void )
+void vPortInitialiseBlocksMicroROS( void )
 {
 	/* This just exists to keep the linker quiet. */
 }
