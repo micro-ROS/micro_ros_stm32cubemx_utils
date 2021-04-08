@@ -37,8 +37,8 @@ print_cflags:
 
 
 ```bash
-docker pull microros/micro_ros_static_library_builder:foxy
-docker run -it --rm -v $(pwd):/project microros/micro_ros_static_library_builder:foxy
+docker pull microros/micro_ros_static_library_builder:rolling
+docker run -it --rm -v $(pwd):/project microros/micro_ros_static_library_builder:rolling
 cd ..
 ```
 
@@ -80,7 +80,7 @@ micro-ROS can be used with SMT32CubeIDE following these steps:
 2. Go to `Project -> Settings -> C/C++ Build -> Settings -> Build Steps Tab` and in `Pre-build steps` add:
 
 ```bash
-docker pull microros/micro_ros_static_library_builder:foxy && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:foxy
+docker pull microros/micro_ros_static_library_builder:rolling && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:rolling
 ```
 
 3. Add micro-ROS include directory. In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
