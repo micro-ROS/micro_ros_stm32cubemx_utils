@@ -8,3 +8,4 @@ Makefile
 *.ld
 build
 .vscode
+libmicroros
