@@ -51,6 +51,7 @@ if [ $RET_CODE = "0" ]; then
     fi
 else
     echo "Please read README.md to update your Makefile"
+    exit 1;
 fi
 popd > /dev/null
 

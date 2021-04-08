@@ -5,6 +5,8 @@
 int absoluteUsedMemory = 0;
 int usedMemory = 0;
 
+void *pvPortMallocMicroROS( size_t xWantedSize );
+void vPortFreeMicroROS( void *pv );
 void *pvPortReallocMicroROS( void *pv, size_t xWantedSize );
 size_t getBlockSize( void *pv );
 void *pvPortCallocMicroROS( size_t num, size_t xWantedSize );

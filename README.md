@@ -18,8 +18,8 @@ C_SOURCES := $(filter-out Middlewares/Third_Party/FreeRTOS/Source/portable/MemMa
 #######################################
 # micro-ROS addons
 #######################################
-LDFLAGS += microros_component/libmicroros/libmicroros.a
-C_INCLUDES += -Imicroros_component/libmicroros/microros_include
+LDFLAGS += microros_static_library/libmicroros/libmicroros.a
+C_INCLUDES += -Imicroros_static_library/libmicroros/microros_include
 
 # Add micro-ROS utils
 C_SOURCES += extra_sources/custom_memory_manager.c
@@ -27,7 +27,7 @@ C_SOURCES += extra_sources/microros_allocators.c
 C_SOURCES += extra_sources/microros_time.c
 
 # Set here the custom transport implementation
-C_SOURCES += microros_component/microros_transports/dma_transport.c
+C_SOURCES += extra_sources/microros_transports/dma_transport.c
 
 print_cflags:
 	@echo $(CFLAGS)
@@ -81,18 +81,19 @@ Once you have followed the steps in this first section:
 2. Go to `Project -> Settings -> C/C++ Build -> Settings -> Build Steps Tab` and in `Pre-build steps` add:
 
 ```bash
-docker pull microros/micro_ros_static_library_builder:foxy && docker run --rm -v ${PWD}/micro_ros_stm32cubemx_utils:/project --env MICROROS_LIBRARY_FOLDER=microros_static_library_ide microros/micro_ros_static_library_builder:foxy ${FLAGS}
+docker pull microros/micro_ros_static_library_builder:foxy && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:foxy
+```
 
-2. Add micro-ROS include directory. In `Project -> Settings -> C/C++ Build -> Settings -> MCU GCC Compiler -> Include paths` add `microros_component/include`
-3. Add the micro-ROS precompiled library. In `Project -> Settings -> C/C++ Build -> Settings -> MCU GCC Linker -> Libraries`
-      - add `microros_component` in `Library search path (-L)`
+3. Add micro-ROS include directory. In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
+4. Add the micro-ROS precompiled library. In `Project -> Settings -> C/C++ Build -> Settings -> MCU GCC Linker -> Libraries`
+      - add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros` in `Library search path (-L)`
       - add `microros` in `Libraries (-l)`
-4. Add the following source code files to your project:
-      - `microros_component/microros_time.c`
-      - `microros_component/microros_allocators.c`
-      - `microros_component/microros_custom_memory_manager.c`
-      - `microros_component/microros_transports/dma_transport.c` or your transport selection.
-5. Build and run your project
+5. Add the following source code files to your project:
+      - `extra_sources/microros_time.c`
+      - `extra_sources/microros_allocators.c`
+      - `extra_sources/custom_memory_manager.c`
+      - `extra_sources/microros_transports/dma_transport.c` or your transport selection.
+6. Build and run your project
 
 ## Purpose of the Project
 
