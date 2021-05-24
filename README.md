@@ -37,8 +37,8 @@ print_cflags:
 
 
 ```bash
-docker pull microros/micro_ros_static_library_builder:rolling
-docker run -it --rm -v $(pwd):/project microros/micro_ros_static_library_builder:rolling
+docker pull microros/micro_ros_static_library_builder:galactic
+docker run -it --rm -v $(pwd):/project microros/micro_ros_static_library_builder:galactic
 cd ..
 ```
 
@@ -54,7 +54,7 @@ Available transport for this platform are:
 ### U(S)ART with DMA
 
 Steps to configure:
-   - Enable U(S)ART in your STM32CubeMX 
+   - Enable U(S)ART in your STM32CubeMX
    - For the selected USART, enable DMA for Tx and Rx under `DMA Settings`
    - Set the DMA priotity to `Very High` for Tx and Rx
    - Set the DMA mode to `Circular` for Rx: [Detail](.images/Set_UART_DMA1.jpg)
@@ -63,7 +63,7 @@ Steps to configure:
 ### U(S)ART with Interrupts
 
 Steps to configure:
-   - Enable U(S)ART in your STM32CubeMX 
+   - Enable U(S)ART in your STM32CubeMX
    - For the selected USART, enable `global interrupt` under `NVIC Settings`: [Detail](.images/Set_UART_IT.jpg)
 ## Customizing the micro-ROS library
 
@@ -80,7 +80,7 @@ micro-ROS can be used with SMT32CubeIDE following these steps:
 2. Go to `Project -> Settings -> C/C++ Build -> Settings -> Build Steps Tab` and in `Pre-build steps` add:
 
 ```bash
-docker pull microros/micro_ros_static_library_builder:rolling && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:rolling
+docker pull microros/micro_ros_static_library_builder:galactic && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:galactic
 ```
 
 3. Add micro-ROS include directory. In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
