@@ -24,8 +24,8 @@ else
 fi
 
 ######## Init ########
-apt update 
-apt install -y gcc-arm-none-eabi
+apt-get update 
+apt-get install -y gcc-arm-none-eabi
 
 cd /uros_ws
 
