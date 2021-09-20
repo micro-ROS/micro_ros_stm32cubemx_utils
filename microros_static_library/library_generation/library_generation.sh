@@ -74,6 +74,6 @@ echo "" > /project/microros_static_library/libmicroros/built_packages
 for f in $(find $(pwd) -name .git -type d); do pushd $f > /dev/null; echo $(git config --get remote.origin.url) $(git rev-parse HEAD) >> /project/microros_static_library/libmicroros/built_packages; popd > /dev/null; done;
 
 ######## Fix permissions ########
-sudo chmod -R 777 /project/microros_static_library/libmicroros/libmicroros/ 
-sudo chmod -R 777 /project/microros_static_library/libmicroros/libmicroros/include/ 
-sudo chmod -R 777 /project/microros_static_library/libmicroros/libmicroros/libmicroros.a
+sudo chmod -R 777 /project/microros_static_library/libmicroros/ 
+sudo chmod -R 777 /project/microros_static_library/libmicroros/microros_include/ 
+sudo chmod -R 777 /project/microros_static_library/libmicroros/libmicroros.a
