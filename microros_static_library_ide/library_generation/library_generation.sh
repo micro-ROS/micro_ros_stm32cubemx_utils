@@ -48,7 +48,12 @@ pushd firmware/mcu_ws > /dev/null
         cp -R $BASE_PATH/library_generation/extra_packages/* .
         vcs import --input extra_packages.repos
     popd > /dev/null
-
+    
+    rm -rf eProsima/Micro-XRCE-DDS-Client
+    rm -rf uros/rmw_microxrcedds
+    
+    git clone -b galactic https://github.com/micro-ROS/rmw_embeddedrtps uros/rmw_embeddedrtps
+    git clone -b working_cubeide https://github.com/pablogs9/embeddedRTPS uros/embeddedRTPS
 popd > /dev/null
 
 ######## Build  ########
