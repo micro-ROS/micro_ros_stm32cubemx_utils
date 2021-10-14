@@ -28,7 +28,7 @@ This tool aims to ease the micro-ROS integration in a STM32CubeMX/IDE project.
 
 This package support the usage of micro-ROS on top of two different middlewares:
 - [eProsima Micro XRCE-DDS](https://micro-xrce-dds.docs.eprosima.com/en/latest/): the default micro-ROS middleware.
-- [embeddedRTPS](https://github.com/embedded-software-laboratory/embeddedRTPS): an experimental implementation of a RTPS middleware compatible with ROS 2. Instructions on how to use it available [here](./embeddedrtps.md)
+- [embeddedRTPS](https://github.com/embedded-software-laboratory/embeddedRTPS): an experimental implementation of a RTPS middleware compatible with ROS 2. **Instructions on how to use it available [here](./embeddedrtps.md).**
 
 ## Using this package with STM32CubeMX
 
