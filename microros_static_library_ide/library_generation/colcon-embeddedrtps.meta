@@ -6,14 +6,8 @@
                 "-DTRACETOOLS_STATUS_CHECKING_TOOL=OFF"
             ]
         },
-        "rosidl_typesupport": {
-            "cmake-args": [
-                "-DROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT=ON"
-            ]
-        },
-        "rcl": {
-            "cmake-args": [
-                "-DBUILD_TESTING=OFF",
+        "rcl":{
+            "cmake-args":[
                 "-DRCL_COMMAND_LINE_ENABLED=OFF",
                 "-DRCL_LOGGING_ENABLED=OFF"
             ]
@@ -27,26 +21,16 @@
                 "-DRCUTILS_AVOID_DYNAMIC_ALLOCATION=ON"
             ]
         },
-        "microxrcedds_client": {
-            "cmake-args": [
-                "-DUCLIENT_PIC=OFF",
-                "-DUCLIENT_PROFILE_UDP=OFF",
-                "-DUCLIENT_PROFILE_TCP=OFF",
-                "-DUCLIENT_PROFILE_DISCOVERY=OFF",
-                "-DUCLIENT_PROFILE_SERIAL=OFF",
-                "-UCLIENT_PROFILE_STREAM_FRAMING=ON",
-                "-DUCLIENT_PROFILE_CUSTOM_TRANSPORT=ON"
-            ]
-        },
         "rmw_microxrcedds": {
             "cmake-args": [
+                "-DRMW_UXRCE_XML_BUFFER_LENGTH=400",
+                "-DRMW_UXRCE_TRANSPORT=udp",
                 "-DRMW_UXRCE_MAX_NODES=1",
-                "-DRMW_UXRCE_MAX_PUBLISHERS=10",
-                "-DRMW_UXRCE_MAX_SUBSCRIPTIONS=5",
+                "-DRMW_UXRCE_MAX_PUBLISHERS=2",
+                "-DRMW_UXRCE_MAX_SUBSCRIPTIONS=2",
                 "-DRMW_UXRCE_MAX_SERVICES=1",
                 "-DRMW_UXRCE_MAX_CLIENTS=1",
-                "-DRMW_UXRCE_MAX_HISTORY=4",
-                "-DRMW_UXRCE_TRANSPORT=custom"
+                "-DRMW_UXRCE_MAX_HISTORY=1"
             ]
         }
     }

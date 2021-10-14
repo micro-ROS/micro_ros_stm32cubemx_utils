@@ -61,7 +61,12 @@ popd > /dev/null
 
 ######## Build  ########
 export TOOLCHAIN_PREFIX=/usr/bin/arm-none-eabi-
-ros2 run micro_ros_setup build_firmware.sh $BASE_PATH/library_generation/toolchain.cmake $BASE_PATH/library_generation/colcon.meta
+
+if [ -z ${MICROROS_USE_EMBEDDEDRTPS+x} ]; then
+    ros2 run micro_ros_setup build_firmware.sh $BASE_PATH/library_generation/toolchain.cmake $BASE_PATH/library_generation/colcon.meta
+else
+    ros2 run micro_ros_setup build_firmware.sh $BASE_PATH/library_generation/toolchain.cmake $BASE_PATH/library_generation/colcon-embeddedrtps.meta
+fi
 
 find firmware/build/include/ -name "*.c"  -delete
 rm -rf $BASE_PATH/libmicroros
