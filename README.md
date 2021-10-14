@@ -2,7 +2,7 @@
 
 <a>
    <p align="center">
-      <img width="auto" style="max-height:20vw" src=".images/cube.png">
+      <img width="15%" height="15%" src=".images/cube.png">
       <img style="padding-left:10vw" width="40%" src=".images/microros_logo.png">
    </p>
 </a>
