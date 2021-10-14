@@ -115,3 +115,65 @@ see the file [3rd-party-licenses.txt](3rd-party-licenses.txt).
 ## Known Issues/Limitations
 
 There are no known limitations.
+
+
+
+
+
+
+EMbeddeded RTPS:
+
+- Create a cpp project
+- Enable LwIP and freertos and ethernet
+- Clone the repo
+
+Add to prebuild:
+
+docker pull microros/micro_ros_static_library_builder:galactic && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_USE_EMBEDDEDRTPS --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:galactic
+
+
+- Fix middlewares/lwip/sc/include/lwip/errno.h adding <sys/errno.h>
+- Enable IGMP in lwip
+
+- Copy
+      - `extra_sources/microros_time.c`
+      - `extra_sources/microros_allocators.c`
+      - `extra_sources/custom_memory_manager.c`
+
+3. Add micro-ROS include directory. In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
+4. Add the micro-ROS precompiled library. In `Project -> Settings -> C/C++ Build -> Settings -> MCU GCC Linker -> Libraries`
+      - add `<ABSOLUTE_PATH_TO>/micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros` in `Library search path (-L)`
+      - add `microros` in `Libraries (-l)`
+
+Increase task stack
+Increase task heap
+Task prio?
+cuiadado con el IGMP flag: NETIF_FLAG_IGMP
+memp num udp pcb config
+
+
+
+
+MULTICAST:
+      stm32f7xx_hal_eth.c:1878:
+      macinit.MulticastFramesFilter = ETH_MULTICASTFRAMESFILTER_NONE;
+
+Freertos max task name lenght
+
+
+embedded rtps priorities to more than 25?
+Task                                                           State   Prio    Stack  Num
+defaultTask                                                     X       24      7170    1
+tcpip_thread                                                    R       20      2489    4
+LinkThr                                                         R       16      245     6
+Tmr Svc                                                         R       2       245     3
+IDLE                                                            R       0       118     2
+HBThreadSub                                                     B       25      957     8
+SPDPThread                                                      B       25      861     11
+HBThread                                                        B       25      957     12
+HBThreadPub                                                     B       25      957     7
+ReaderThread                                                    B       25      929     10
+WriterThread                                                    B       25      842     9
+EthIf                                                           B       48      44      5
+
+Pbuf sizes?

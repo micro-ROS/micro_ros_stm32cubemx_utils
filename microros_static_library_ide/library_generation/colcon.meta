@@ -32,12 +32,6 @@
                 "-DRMW_UXRCE_MAX_CLIENTS=1",
                 "-DRMW_UXRCE_MAX_HISTORY=1"
             ]
-        },
-        "tracetools": {
-            "cmake-args": [
-                "-DTRACETOOLS_DISABLED=ON",
-                "-DTRACETOOLS_STATUS_CHECKING_TOOL=OFF"
-            ]
         }
     }
 }
