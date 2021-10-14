@@ -177,3 +177,13 @@ WriterThread                                                    B       25      
 EthIf                                                           B       48      44      5
 
 Pbuf sizes?
+
+
+## How to configure micro-ROS with embeddedRTPS
+
+1. Create a a new STM32 project based on C++
+2. In the `.ioc` file enable:
+    - Middleware -> FreeRTOS: with CMSIS_V2
+    - Middleware -> LwIP
+    - Connectivity -> ETH
+
