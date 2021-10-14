@@ -1,7 +1,7 @@
 ## How to configure micro-ROS with embeddedRTPS
 
 This is a **experimental** approach for using micro-ROS with [embeddedRTPS](https://github.com/embedded-software-laboratory/embeddedRTPS) as middleware.
-This instructions are an approach to an [STMCubeIDE v1.7.0](https://www.st.com/en/development-tools/stm32cubeide.html) + [FreeRTOS](https://www.freertos.org/) + [LwIP](https://www.nongnu.org/lwip/2_1_x/index.html) configuration and has been tested with [Nucleo F746ZG](https://www.st.com/en/evaluation-tools/nucleo-f746zg.html) board against ROS 2 Galactic with [Fast-DDS](https://github.com/eProsima/Fast-DDS) as [default middleware](https://github.com/eProsima/Fast-DDS-docs/blob/master/docs/fastdds/ros2/ros2.rst).
+This instructions are an approach to a [STMCubeIDE v1.7.0](https://www.st.com/en/development-tools/stm32cubeide.html) + [FreeRTOS](https://www.freertos.org/) + [LwIP](https://www.nongnu.org/lwip/2_1_x/index.html) configuration and has been tested with [Nucleo F746ZG](https://www.st.com/en/evaluation-tools/nucleo-f746zg.html) board against ROS 2 Galactic with [Fast-DDS](https://github.com/eProsima/Fast-DDS) as [default middleware](https://github.com/eProsima/Fast-DDS-docs/blob/master/docs/fastdds/ros2/ros2.rst).
 
 **IT IS HIGHLY RECOMMENDED TO HAVE THE BOARD AND THE ROS 2 COMPUTER IN AN ISOLATED ETHERNET NETWORK**
 
