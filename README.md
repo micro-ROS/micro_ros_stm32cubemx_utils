@@ -1,8 +1,36 @@
-# micro-ROS for STM32CubeMX
+<br/>
 
-This tool aims to ease the micro-ROS integration in a STM32CubeMX project.
+<a>
+   <p align="center">
+      <img width="auto" style="max-height:20vw" src=".images/cube.png">
+      <img style="padding-left:10vw" width="40%" src=".images/microros_logo.png">
+   </p>
+</a>
+<br/>
 
-## How to use it
+# micro-ROS for STM32CubeMX/IDE
+
+This tool aims to ease the micro-ROS integration in a STM32CubeMX/IDE project.
+
+- [micro-ROS for STM32CubeMX/IDE](#micro-ros-for-stm32cubemxide)
+  - [Middlewares available](#middlewares-available)
+  - [Using this package with STM32CubeMX](#using-this-package-with-stm32cubemx)
+  - [Using this package with STM32CubeIDE](#using-this-package-with-stm32cubeide)
+  - [Transport configuration](#transport-configuration)
+    - [U(S)ART with DMA](#usart-with-dma)
+    - [U(S)ART with Interrupts](#usart-with-interrupts)
+  - [Customizing the micro-ROS library](#customizing-the-micro-ros-library)
+  - [Adding custom packages](#adding-custom-packages)
+  - [Purpose of the Project](#purpose-of-the-project)
+  - [License](#license)
+  - [Known Issues/Limitations](#known-issueslimitations)
+## Middlewares available
+
+This package support the usage of micro-ROS on top of two different middlewares:
+- [eProsima Micro XRCE-DDS](https://micro-xrce-dds.docs.eprosima.com/en/latest/): the default micro-ROS middleware.
+- [embeddedRTPS](https://github.com/embedded-software-laboratory/embeddedRTPS): an experimental implementation of a RTPS middleware compatible with ROS 2. Instructions on how to use it available [here](./embeddedrtps.md)
+
+## Using this package with STM32CubeMX
 
 1. In the `root` folder, generate your STM32CubeMX project. A sample project can be generated with the provided `sample_project.ioc`.
 2. Make sure that your STM32CubeMX project is using a `Makefile` toolchain under `Project Manager -> Project`
@@ -48,30 +76,6 @@ cd ..
 ```bash
 make -j$(nproc)
 ```
-## Transport configuration
-
-Available transport for this platform are:
-### U(S)ART with DMA
-
-Steps to configure:
-   - Enable U(S)ART in your STM32CubeMX
-   - For the selected USART, enable DMA for Tx and Rx under `DMA Settings`
-   - Set the DMA priotity to `Very High` for Tx and Rx
-   - Set the DMA mode to `Circular` for Rx: [Detail](.images/Set_UART_DMA1.jpg)
-   - For the selected, enable `global interrupt` under `NVIC Settings`: [Detail](.images/Set_UART_DMA_2.jpg)
-
-### U(S)ART with Interrupts
-
-Steps to configure:
-   - Enable U(S)ART in your STM32CubeMX
-   - For the selected USART, enable `global interrupt` under `NVIC Settings`: [Detail](.images/Set_UART_IT.jpg)
-## Customizing the micro-ROS library
-
-All the micro-ROS configuration can be done in `colcon.meta` file before step 3. You can find detailed information about how to tune the static memory usage of the library in the [Middleware Configuration tutorial](https://micro.ros.org/docs/tutorials/core/microxrcedds_rmw_configuration/).
-## Adding custom packages
-
-Note that folders added to `microros_component/extra_packages` and entries added to `microros_component/extra_packages/extra_packages.repos` will be taken into account by this build system.
-
 ## Using this package with STM32CubeIDE
 
 micro-ROS can be used with SMT32CubeIDE following these steps:
@@ -95,6 +99,30 @@ docker pull microros/micro_ros_static_library_builder:galactic && docker run --r
 6. Make sure that if you are using FreeRTOS, the micro-ROS task **has more than 10 kB of stack**: [Detail](.images/Set_freertos_stack.jpg)
 7. Configure the transport interface on the STM32CubeMX project, check the [Transport configuration](#Transport-configuration) section for instructions on the custom transports provided.
 8. Build and run your project
+## Transport configuration
+
+Available transport for this platform are:
+### U(S)ART with DMA
+
+Steps to configure:
+   - Enable U(S)ART in your STM32CubeMX
+   - For the selected USART, enable DMA for Tx and Rx under `DMA Settings`
+   - Set the DMA priotity to `Very High` for Tx and Rx
+   - Set the DMA mode to `Circular` for Rx: [Detail](.images/Set_UART_DMA1.jpg)
+   - For the selected, enable `global interrupt` under `NVIC Settings`: [Detail](.images/Set_UART_DMA_2.jpg)
+
+### U(S)ART with Interrupts
+
+Steps to configure:
+   - Enable U(S)ART in your STM32CubeMX
+   - For the selected USART, enable `global interrupt` under `NVIC Settings`: [Detail](.images/Set_UART_IT.jpg)
+
+## Customizing the micro-ROS library
+
+All the micro-ROS configuration can be done in `colcon.meta` file before step 3. You can find detailed information about how to tune the static memory usage of the library in the [Middleware Configuration tutorial](https://micro.ros.org/docs/tutorials/core/microxrcedds_rmw_configuration/).
+## Adding custom packages
+
+Note that folders added to `microros_component/extra_packages` and entries added to `microros_component/extra_packages/extra_packages.repos` will be taken into account by this build system.
 
 ## Purpose of the Project
 
@@ -115,134 +143,3 @@ see the file [3rd-party-licenses.txt](3rd-party-licenses.txt).
 ## Known Issues/Limitations
 
 There are no known limitations.
-
-
-
-
-
-
-EMbeddeded RTPS:
-
-- Create a cpp project
-- Enable LwIP and freertos and ethernet
-- Clone the repo
-
-Add to prebuild:
-
-docker pull microros/micro_ros_static_library_builder:galactic && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_USE_EMBEDDEDRTPS --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:galactic
-
-
-- Fix middlewares/lwip/sc/include/lwip/errno.h adding <sys/errno.h>
-- Enable IGMP in lwip
-
-- Copy
-      - `extra_sources/microros_time.c`
-      - `extra_sources/microros_allocators.c`
-      - `extra_sources/custom_memory_manager.c`
-
-3. Add micro-ROS include directory. In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
-4. Add the micro-ROS precompiled library. In `Project -> Settings -> C/C++ Build -> Settings -> MCU GCC Linker -> Libraries`
-      - add `<ABSOLUTE_PATH_TO>/micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros` in `Library search path (-L)`
-      - add `microros` in `Libraries (-l)`
-
-Increase task stack
-Increase task heap
-Task prio?
-cuiadado con el IGMP flag: NETIF_FLAG_IGMP
-memp num udp pcb config
-
-
-
-
-MULTICAST:
-      stm32f7xx_hal_eth.c:1878:
-      macinit.MulticastFramesFilter = ETH_MULTICASTFRAMESFILTER_NONE;
-
-Freertos max task name lenght
-
-
-embedded rtps priorities to more than 25?
-Task                                                           State   Prio    Stack  Num
-defaultTask                                                     X       24      7170    1
-tcpip_thread                                                    R       20      2489    4
-LinkThr                                                         R       16      245     6
-Tmr Svc                                                         R       2       245     3
-IDLE                                                            R       0       118     2
-HBThreadSub                                                     B       25      957     8
-SPDPThread                                                      B       25      861     11
-HBThread                                                        B       25      957     12
-HBThreadPub                                                     B       25      957     7
-ReaderThread                                                    B       25      929     10
-WriterThread                                                    B       25      842     9
-EthIf                                                           B       48      44      5
-
-Pbuf sizes?
-
-
-## How to configure micro-ROS with embeddedRTPS
-
-
-**IT IS HIGHLY RECOMMENDED TO HAVE THE BOARD AND THE ROS 2 COMPUTER IN AN ISOLATED ETHERNET NETWORK**
-
-1. Create a a new STM32 project based on C++
-
-2. In the `.ioc` file enable:
-    - Middleware -> FreeRTOS: with CMSIS_V2
-    - Middleware -> LwIP
-    - Connectivity -> ETH
-
-3. Make sure that your HAL timebase is not Systick (FreeRTOS requeriments) and `USE_NEWLIB_REENTRANT` is enabled (FreeRTOS -> Advanced settings).
-
-4. Enable IGMP support:
-   - LwIP -> Key Options (Show advanced parameters) -> Multicast Options -> LWIP_MULTICAST_TX_OPTIONS -> Enabled
-   - LwIP -> General Settings -> LWIP IGMP -> Enabled
-
-5. Configure IP at LwIP level:
-   - LwIP -> General Settings -> LWIP_DHCP -> Disabled
-   - LwIP -> General Settings -> IP Address Settings
-
-6. Make sure that FreeRTOS has the following configuration:
-   - FreeRTOS -> Config parameters -> Memory management settings -> TOTAL_HEAP_SIZE -> 100000 Bytes
-   - FreeRTOS -> Config parameters -> Kernal settings -> MAX_TASK_NAME_LEN -> 30
-   - FreeRTOS -> Tasks and Queues -> defaultTask -> Stack Size -> 8000 Words
-   - FreeRTOS -> Tasks and Queues -> defaultTask -> Priority -> Belownormal3
-
-7. Make sure that LwIP has the following configuration:
-   - LwIP -> General Settings -> Procols Options -> MEMP_NUM_UDP_PCB -> 15
-   - LwIP -> Key Options (Show advanced parameters) -> Infraestructure - Heap and Memory Pools Options -> MEM_SIZE -> 30000 Bytes
-   - LwIP -> Key Options (Show advanced parameters) -> Infraestructure - Threading options -> TCPIP_THREAD_STACKSIZE -> 10000 Words
-   - LwIP -> Key Options (Show advanced parameters) -> Infraestructure - Threading options -> TCPIP_THREAD_PRIO -> 20
-   - LwIP -> Key Options (Show advanced parameters) -> Infraestructure - Pbuf Options -> PBUF_POOL_SIZE -> 20
-
-8. In file `LWIP/Target/ethernetif.c` add the following line in block `USER CODE BEGIN MACADDRESS` inside `low_level_init()` function: `netif->flags |= NETIF_FLAG_IGMP;`
-9. Make sure that `macinit.MulticastFramesFilter` is set to `ETH_MULTICASTFRAMESFILTER_NONE`. Usually this configuration is set in `Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_eth.c:1878` and by default its value is `ETH_MULTICASTFRAMESFILTER_PERFECT`. **Probably this is modified automatically every time code is generated**.
-
-10. Clone this repository in your STM32CubeIDE project folder
-11. Go to `Project -> Settings -> C/C++ Build -> Settings -> Build Steps Tab` and in `Pre-build steps` add:
-
-```bash
-docker pull microros/micro_ros_static_library_builder:galactic && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_USE_EMBEDDEDRTPS --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:galactic
-```
-
-12. Add the following source code files to your project, dragging them to source folder:
-   - `extra_sources/microros_time.c`
-   - `extra_sources/microros_allocators.c`
-   - `extra_sources/custom_memory_manager.c`
-
-13. Add micro-ROS include directory:
-   - In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
-   - In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU G++ Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
-
-14.  Add the micro-ROS precompiled library. In `Project -> Settings -> C/C++ Build -> Settings -> MCU GCC Linker -> Libraries`
-  - add `<ABSOLUTE_PATH_TO>/micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros` in `Library search path (-L)`
-  - add `microros` in `Libraries (-l)`
-
-15. Use `sample_main_embeddedrtps.c` as reference for writing you application code.
-
-16. In `Core/Inc/FreeRTOSConfig.h`. Explanation [here](https://community.st.com/s/question/0D50X0000BJ1iquSQB/bug-in-cubemx-ide-lwip-freertos-on-nucleo-f429zi)
-   ```c
-   // FROM THIS:
-   // #define configASSERT( x ) if ((x) == 0) {taskDISABLE_INTERRUPTS(); for( ;; );}
-   // TO THIS:
-   #define configASSERT( x )
-   ```

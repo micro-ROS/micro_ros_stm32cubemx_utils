@@ -57,7 +57,7 @@ osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
   .stack_size = 8000 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityBelowNormal3,
 };
 /* USER CODE BEGIN PV */
 /* USER CODE END PV */
@@ -395,6 +395,18 @@ void StartDefaultTask(void *argument)
     "cubemx_publisher");
 
   msg.data = 0;
+
+  // TO print this enable FreeRTOS -> USE_STATS_FORMATTING_FUNCTIONS
+
+  // static char ptrTaskList[1000];
+
+  // vTaskList(ptrTaskList);
+  // printf("**********************************");
+  // printf("Task  State   Prio    Stack    Num");
+  // printf("**********************************");
+  // printf(ptrTaskList);
+  // printf("**********************************");
+
 
   for(;;) {
     (void)! rcl_publish(&publisher, &msg, NULL);
