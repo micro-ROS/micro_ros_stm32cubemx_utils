@@ -17,6 +17,11 @@ includes = list(set(includes))
 includes = [x.replace("../", "/project/") for x in includes]
 
 out = "-ffunction-sections -fdata-sections -DSTM32CUBEIDE"
+
+# This fix is needed for the embeddedRTPS to work due to the lack of include
+# <sys/errno.h> in Middlewares/Third_Party/LwIP/src/include/lwip/errno.h
+out = out + " -DENOTSUP=1 -DECANCELED=1 -DEOWNERDEAD=1 -DENOTRECOVERABLE=1"
+
 if len(mcpu) and len(mfloatabi):
     out = out + " " + mcpu[0] + " " + mfloatabi[0]
     if len(mthumb):
