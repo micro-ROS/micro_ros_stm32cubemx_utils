@@ -51,11 +51,11 @@ docker pull microros/micro_ros_static_library_builder:galactic && docker run --r
    - `extra_sources/custom_memory_manager.c`
 
 13. Add micro-ROS include directory:
-   - In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
-   - In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU G++ Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
+   - In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `../micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
+   - In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU G++ Compiler -> Include paths` add `../micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
 
 14.  Add the micro-ROS precompiled library. In `Project -> Settings -> C/C++ Build -> Settings -> MCU GCC Linker -> Libraries`
-  - add `<ABSOLUTE_PATH_TO>/micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros` in `Library search path (-L)`
+  - add `../micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros` in `Library search path (-L)`
   - add `microros` in `Libraries (-l)`
 
 15. Use `sample_main_embeddedrtps.c` as reference for writing you application code.
