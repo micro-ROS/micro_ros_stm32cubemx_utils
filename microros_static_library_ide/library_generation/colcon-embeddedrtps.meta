@@ -21,16 +21,13 @@
                 "-DRCUTILS_AVOID_DYNAMIC_ALLOCATION=ON"
             ]
         },
-        "rmw_microxrcedds": {
+        "embeddedrtps": {
             "cmake-args": [
-                "-DRMW_UXRCE_XML_BUFFER_LENGTH=400",
-                "-DRMW_UXRCE_TRANSPORT=udp",
-                "-DRMW_UXRCE_MAX_NODES=1",
-                "-DRMW_UXRCE_MAX_PUBLISHERS=2",
-                "-DRMW_UXRCE_MAX_SUBSCRIPTIONS=2",
-                "-DRMW_UXRCE_MAX_SERVICES=1",
-                "-DRMW_UXRCE_MAX_CLIENTS=1",
-                "-DRMW_UXRCE_MAX_HISTORY=1"
+                "-DERTPS_MAX_PUBLISHERS=2",
+                "-DERTPS_MAX_SUBSCRIPTIONS=2",
+                "-DERTPS_MAX_SERVICES=1",
+                "-DERTPS_MAX_CLIENTS=1",
+                "-DERTPS_MAX_HISTORY=10"
             ]
         }
     }
