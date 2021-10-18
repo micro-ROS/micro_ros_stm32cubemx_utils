@@ -6,8 +6,14 @@
                 "-DTRACETOOLS_STATUS_CHECKING_TOOL=OFF"
             ]
         },
-        "rcl":{
-            "cmake-args":[
+        "rosidl_typesupport": {
+            "cmake-args": [
+                "-DROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT=ON"
+            ]
+        },
+        "rcl": {
+            "cmake-args": [
+                "-DBUILD_TESTING=OFF",
                 "-DRCL_COMMAND_LINE_ENABLED=OFF",
                 "-DRCL_LOGGING_ENABLED=OFF"
             ]
@@ -27,7 +33,9 @@
                 "-DERTPS_MAX_SUBSCRIPTIONS=2",
                 "-DERTPS_MAX_SERVICES=1",
                 "-DERTPS_MAX_CLIENTS=1",
-                "-DERTPS_MAX_HISTORY=10"
+                "-DERTPS_PROXIES_PER_WRITER=5",
+                "-DERTPS_PROXIES_PER_READER=5",
+                "-DERTPS_MAX_UDP_CONNECTIONS=15"
             ]
         }
     }
