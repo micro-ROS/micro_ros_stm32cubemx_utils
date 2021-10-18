@@ -1,8 +1,36 @@
-# micro-ROS for STM32CubeMX
+<br/>
 
-This tool aims to ease the micro-ROS integration in a STM32CubeMX project.
+<a>
+   <p align="center">
+      <img width="15%" height="15%" src=".images/cube.png">
+      <img style="padding-left:10vw" width="40%" src=".images/microros_logo.png">
+   </p>
+</a>
+<br/>
 
-## How to use it
+# micro-ROS for STM32CubeMX/IDE
+
+This tool aims to ease the micro-ROS integration in a STM32CubeMX/IDE project.
+
+- [micro-ROS for STM32CubeMX/IDE](#micro-ros-for-stm32cubemxide)
+  - [Middlewares available](#middlewares-available)
+  - [Using this package with STM32CubeMX](#using-this-package-with-stm32cubemx)
+  - [Using this package with STM32CubeIDE](#using-this-package-with-stm32cubeide)
+  - [Transport configuration](#transport-configuration)
+    - [U(S)ART with DMA](#usart-with-dma)
+    - [U(S)ART with Interrupts](#usart-with-interrupts)
+  - [Customizing the micro-ROS library](#customizing-the-micro-ros-library)
+  - [Adding custom packages](#adding-custom-packages)
+  - [Purpose of the Project](#purpose-of-the-project)
+  - [License](#license)
+  - [Known Issues/Limitations](#known-issueslimitations)
+## Middlewares available
+
+This package support the usage of micro-ROS on top of two different middlewares:
+- [eProsima Micro XRCE-DDS](https://micro-xrce-dds.docs.eprosima.com/en/latest/): the default micro-ROS middleware.
+- [embeddedRTPS](https://github.com/embedded-software-laboratory/embeddedRTPS): an experimental implementation of a RTPS middleware compatible with ROS 2. **Instructions on how to use it available [here](./embeddedrtps.md).**
+
+## Using this package with STM32CubeMX
 
 1. In the `root` folder, generate your STM32CubeMX project. A sample project can be generated with the provided `sample_project.ioc`.
 2. Make sure that your STM32CubeMX project is using a `Makefile` toolchain under `Project Manager -> Project`
@@ -48,30 +76,6 @@ cd ..
 ```bash
 make -j$(nproc)
 ```
-## Transport configuration
-
-Available transport for this platform are:
-### U(S)ART with DMA
-
-Steps to configure:
-   - Enable U(S)ART in your STM32CubeMX 
-   - For the selected USART, enable DMA for Tx and Rx under `DMA Settings`
-   - Set the DMA priotity to `Very High` for Tx and Rx
-   - Set the DMA mode to `Circular` for Rx: [Detail](.images/Set_UART_DMA1.jpg)
-   - For the selected, enable `global interrupt` under `NVIC Settings`: [Detail](.images/Set_UART_DMA_2.jpg)
-
-### U(S)ART with Interrupts
-
-Steps to configure:
-   - Enable U(S)ART in your STM32CubeMX 
-   - For the selected USART, enable `global interrupt` under `NVIC Settings`: [Detail](.images/Set_UART_IT.jpg)
-## Customizing the micro-ROS library
-
-All the micro-ROS configuration can be done in `colcon.meta` file before step 3. You can find detailed information about how to tune the static memory usage of the library in the [Middleware Configuration tutorial](https://micro.ros.org/docs/tutorials/core/microxrcedds_rmw_configuration/).
-## Adding custom packages
-
-Note that folders added to `microros_component/extra_packages` and entries added to `microros_component/extra_packages/extra_packages.repos` will be taken into account by this build system.
-
 ## Using this package with STM32CubeIDE
 
 micro-ROS can be used with SMT32CubeIDE following these steps:
@@ -95,6 +99,30 @@ docker pull microros/micro_ros_static_library_builder:rolling && docker run --rm
 6. Make sure that if you are using FreeRTOS, the micro-ROS task **has more than 10 kB of stack**: [Detail](.images/Set_freertos_stack.jpg)
 7. Configure the transport interface on the STM32CubeMX project, check the [Transport configuration](#Transport-configuration) section for instructions on the custom transports provided.
 8. Build and run your project
+## Transport configuration
+
+Available transport for this platform are:
+### U(S)ART with DMA
+
+Steps to configure:
+   - Enable U(S)ART in your STM32CubeMX
+   - For the selected USART, enable DMA for Tx and Rx under `DMA Settings`
+   - Set the DMA priotity to `Very High` for Tx and Rx
+   - Set the DMA mode to `Circular` for Rx: [Detail](.images/Set_UART_DMA1.jpg)
+   - For the selected, enable `global interrupt` under `NVIC Settings`: [Detail](.images/Set_UART_DMA_2.jpg)
+
+### U(S)ART with Interrupts
+
+Steps to configure:
+   - Enable U(S)ART in your STM32CubeMX
+   - For the selected USART, enable `global interrupt` under `NVIC Settings`: [Detail](.images/Set_UART_IT.jpg)
+
+## Customizing the micro-ROS library
+
+All the micro-ROS configuration can be done in `colcon.meta` file before step 3. You can find detailed information about how to tune the static memory usage of the library in the [Middleware Configuration tutorial](https://micro.ros.org/docs/tutorials/advanced/microxrcedds_rmw_configuration/).
+## Adding custom packages
+
+Note that folders added to `microros_component/extra_packages` and entries added to `microros_component/extra_packages/extra_packages.repos` will be taken into account by this build system.
 
 ## Purpose of the Project
 

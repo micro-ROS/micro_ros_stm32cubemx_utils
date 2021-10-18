@@ -17,7 +17,7 @@
                 "-DRCL_COMMAND_LINE_ENABLED=OFF",
                 "-DRCL_LOGGING_ENABLED=OFF"
             ]
-        }, 
+        },
         "rcutils": {
             "cmake-args": [
                 "-DENABLE_TESTING=OFF",

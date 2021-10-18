@@ -1,0 +1,34 @@
+{
+    "names": {
+        "tracetools": {
+            "cmake-args": [
+                "-DTRACETOOLS_DISABLED=ON",
+                "-DTRACETOOLS_STATUS_CHECKING_TOOL=OFF"
+            ]
+        },
+        "rcl":{
+            "cmake-args":[
+                "-DRCL_COMMAND_LINE_ENABLED=OFF",
+                "-DRCL_LOGGING_ENABLED=OFF"
+            ]
+        },
+        "rcutils": {
+            "cmake-args": [
+                "-DENABLE_TESTING=OFF",
+                "-DRCUTILS_NO_FILESYSTEM=ON",
+                "-DRCUTILS_NO_THREAD_SUPPORT=ON",
+                "-DRCUTILS_NO_64_ATOMIC=ON",
+                "-DRCUTILS_AVOID_DYNAMIC_ALLOCATION=ON"
+            ]
+        },
+        "embeddedrtps": {
+            "cmake-args": [
+                "-DERTPS_MAX_PUBLISHERS=2",
+                "-DERTPS_MAX_SUBSCRIPTIONS=2",
+                "-DERTPS_MAX_SERVICES=1",
+                "-DERTPS_MAX_CLIENTS=1",
+                "-DERTPS_MAX_HISTORY=10"
+            ]
+        }
+    }
+}

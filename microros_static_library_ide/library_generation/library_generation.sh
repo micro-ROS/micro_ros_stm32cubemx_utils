@@ -24,7 +24,7 @@ else
 fi
 
 ######## Init ########
-apt-get update 
+apt-get update
 apt-get install -y gcc-arm-none-eabi
 
 cd /uros_ws
@@ -49,16 +49,29 @@ pushd firmware/mcu_ws > /dev/null
         vcs import --input extra_packages.repos
     popd > /dev/null
 
+    if [ -z ${MICROROS_USE_EMBEDDEDRTPS+x} ]; then
+        rm -rf eProsima/Micro-XRCE-DDS-Client
+        rm -rf uros/rmw_microxrcedds
+
+        git clone -b galactic https://github.com/micro-ROS/rmw_embeddedrtps uros/rmw_embeddedrtps
+        git clone -b working_cubeide https://github.com/pablogs9/embeddedRTPS uros/embeddedRTPS
+    fi
+
 popd > /dev/null
 
 ######## Build  ########
 export TOOLCHAIN_PREFIX=/usr/bin/arm-none-eabi-
-ros2 run micro_ros_setup build_firmware.sh $BASE_PATH/library_generation/toolchain.cmake $BASE_PATH/library_generation/colcon.meta
+
+if [ -z ${MICROROS_USE_EMBEDDEDRTPS+x} ]; then
+    ros2 run micro_ros_setup build_firmware.sh $BASE_PATH/library_generation/toolchain.cmake $BASE_PATH/library_generation/colcon.meta
+else
+    ros2 run micro_ros_setup build_firmware.sh $BASE_PATH/library_generation/toolchain.cmake $BASE_PATH/library_generation/colcon-embeddedrtps.meta
+fi
 
 find firmware/build/include/ -name "*.c"  -delete
 rm -rf $BASE_PATH/libmicroros
 mkdir -p $BASE_PATH/libmicroros/include
-cp -R firmware/build/include/* $BASE_PATH/libmicroros/include/ 
+cp -R firmware/build/include/* $BASE_PATH/libmicroros/include/
 cp -R firmware/build/libmicroros.a $BASE_PATH/libmicroros/libmicroros.a
 
 ######## Generate extra files ########
@@ -70,6 +83,6 @@ echo "" > $BASE_PATH/libmicroros/built_packages
 for f in $(find $(pwd) -name .git -type d); do pushd $f > /dev/null; echo $(git config --get remote.origin.url) $(git rev-parse HEAD) >> $BASE_PATH/libmicroros/built_packages; popd > /dev/null; done;
 
 ######## Fix permissions ########
-sudo chmod -R 777 $BASE_PATH/libmicroros/ 
-sudo chmod -R 777 $BASE_PATH/libmicroros/include/ 
+sudo chmod -R 777 $BASE_PATH/libmicroros/
+sudo chmod -R 777 $BASE_PATH/libmicroros/include/
 sudo chmod -R 777 $BASE_PATH/libmicroros/libmicroros.a
