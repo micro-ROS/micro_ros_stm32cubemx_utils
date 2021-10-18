@@ -33,9 +33,9 @@
                 "-DERTPS_MAX_SUBSCRIPTIONS=2",
                 "-DERTPS_MAX_SERVICES=1",
                 "-DERTPS_MAX_CLIENTS=1",
-				"-DERTPS_PROXIES_PER_WRITER=5",
-				"-DERTPS_PROXIES_PER_READER=5",
-				"-DERTPS_MAX_UDP_CONNECTIONS=15"
+                "-DERTPS_PROXIES_PER_WRITER=5",
+                "-DERTPS_PROXIES_PER_READER=5",
+                "-DERTPS_MAX_UDP_CONNECTIONS=15"
             ]
         }
     }
