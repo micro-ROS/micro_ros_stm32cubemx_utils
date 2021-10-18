@@ -53,8 +53,8 @@ pushd firmware/mcu_ws > /dev/null
         rm -rf eProsima/Micro-XRCE-DDS-Client
         rm -rf uros/rmw_microxrcedds
 
-        git clone -b galactic https://github.com/micro-ROS/rmw_embeddedrtps uros/rmw_embeddedrtps
-        git clone -b working_cubeide https://github.com/pablogs9/embeddedRTPS uros/embeddedRTPS
+        git clone -b feature/domain_id https://github.com/micro-ROS/rmw_embeddedrtps uros/rmw_embeddedrtps
+        git clone -b feature/build_conf https://github.com/pablogs9/embeddedRTPS uros/embeddedRTPS
     fi
 
 popd > /dev/null
@@ -63,9 +63,9 @@ popd > /dev/null
 export TOOLCHAIN_PREFIX=/usr/bin/arm-none-eabi-
 
 if [ -z ${MICROROS_USE_EMBEDDEDRTPS+x} ]; then
-    ros2 run micro_ros_setup build_firmware.sh $BASE_PATH/library_generation/toolchain.cmake $BASE_PATH/library_generation/colcon.meta
-else
     ros2 run micro_ros_setup build_firmware.sh $BASE_PATH/library_generation/toolchain.cmake $BASE_PATH/library_generation/colcon-embeddedrtps.meta
+else
+    ros2 run micro_ros_setup build_firmware.sh $BASE_PATH/library_generation/toolchain.cmake $BASE_PATH/library_generation/colcon.meta
 fi
 
 find firmware/build/include/ -name "*.c"  -delete
