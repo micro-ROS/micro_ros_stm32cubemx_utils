@@ -54,7 +54,7 @@ pushd firmware/mcu_ws > /dev/null
         rm -rf uros/rmw_microxrcedds
 
         git clone -b main https://github.com/micro-ROS/rmw_embeddedrtps uros/rmw_embeddedrtps
-        git clone -b main https://github.com/pablogs9/embeddedRTPS uros/embeddedRTPS
+        git clone -b main https://github.com/micro-ROS/embeddedRTPS uros/embeddedRTPS
     fi
 
 popd > /dev/null
