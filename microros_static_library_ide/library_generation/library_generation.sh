@@ -53,13 +53,8 @@ pushd firmware/mcu_ws > /dev/null
         rm -rf eProsima/Micro-XRCE-DDS-Client
         rm -rf uros/rmw_microxrcedds
 
-<<<<<<< HEAD
         git clone -b main https://github.com/micro-ROS/rmw_embeddedrtps uros/rmw_embeddedrtps
-        git clone -b main https://github.com/pablogs9/embeddedRTPS uros/embeddedRTPS
-=======
-        git clone -b galactic https://github.com/micro-ROS/rmw_embeddedrtps uros/rmw_embeddedrtps
-        git clone -b galactic https://github.com/micro-ROS/embeddedRTPS uros/embeddedRTPS
->>>>>>> e0635a9 (Fix embeddedRTPS repo (#33))
+        git clone -b main https://github.com/micro-ROS/embeddedRTPS uros/embeddedRTPS
     fi
 
 popd > /dev/null
