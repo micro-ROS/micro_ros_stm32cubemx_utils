@@ -42,7 +42,7 @@ This instructions are an approach to a [STMCubeIDE v1.7.0](https://www.st.com/en
 10. Go to `Project -> Settings -> C/C++ Build -> Settings -> Build Steps Tab` and in `Pre-build steps` add:
 
 ```bash
-docker pull microros/micro_ros_static_library_builder:galactic && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_USE_EMBEDDEDRTPS --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:galactic
+docker pull microros/micro_ros_static_library_builder:galactic && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_USE_EMBEDDEDRTPS=ON --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:galactic
 ```
 
 12. Add the following source code files to your project, dragging them to source folder:
