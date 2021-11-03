@@ -49,7 +49,7 @@ pushd firmware/mcu_ws > /dev/null
         vcs import --input extra_packages.repos
     popd > /dev/null
 
-    if [ -z ${MICROROS_USE_EMBEDDEDRTPS+x} ]; then
+    if [ ! -z ${MICROROS_USE_EMBEDDEDRTPS+x} ]; then
         rm -rf eProsima/Micro-XRCE-DDS-Client
         rm -rf uros/rmw_microxrcedds
 
@@ -62,7 +62,7 @@ popd > /dev/null
 ######## Build  ########
 export TOOLCHAIN_PREFIX=/usr/bin/arm-none-eabi-
 
-if [ -z ${MICROROS_USE_EMBEDDEDRTPS+x} ]; then
+if [ ! -z ${MICROROS_USE_EMBEDDEDRTPS+x} ]; then
     ros2 run micro_ros_setup build_firmware.sh $BASE_PATH/library_generation/toolchain.cmake $BASE_PATH/library_generation/colcon-embeddedrtps.meta
 else
     ros2 run micro_ros_setup build_firmware.sh $BASE_PATH/library_generation/toolchain.cmake $BASE_PATH/library_generation/colcon.meta
