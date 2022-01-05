@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
 
-export BASE_PATH=/project/micro_ros_stm32cubemx_utils/microros_static_library_ide
+export BASE_PATH=/project/$MICROROS_LIBRARY_FOLDER
 
 ######## Check existing library ########
 if [ -f "$BASE_PATH/libmicroros/libmicroros.a" ]; then
     echo "micro-ROS library found. Skipping..."
-    echo "Delete micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/ for rebuild."
+    echo "Delete $MICROROS_LIBRARY_FOLDER/libmicroros/ for rebuild."
     exit 0
 fi
 ######## Trying to retrieve CFLAGS ########
