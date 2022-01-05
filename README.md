@@ -37,14 +37,8 @@ print_cflags:
 
 
 ```bash
-<<<<<<< HEAD
 docker pull microros/micro_ros_static_library_builder:foxy
-docker run -it --rm -v $(pwd):/project microros/micro_ros_static_library_builder:foxy
-cd ..
-=======
-docker pull microros/micro_ros_static_library_builder:galactic
-docker run -it --rm -v $(pwd):/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library microros/micro_ros_static_library_builder:galactic
->>>>>>> 8ee07e2 (Update STM32CubeMX micro-ROS library paths (#42))
+docker run -it --rm -v $(pwd):/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library microros/micro_ros_static_library_builder:foxy
 ```
 
 1. Modify your `main.c` to use micro-ROS. An example application can be found in `sample_main.c`.
