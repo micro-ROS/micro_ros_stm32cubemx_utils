@@ -4,7 +4,7 @@ This tool aims to ease the micro-ROS integration in a STM32CubeMX project.
 
 ## How to use it
 
-1. In the `root` folder, generate your STM32CubeMX project. A sample project can be generated with the provided `sample_project.ioc`.
+1. Clone this repository in your STM32CubeMX project folder. A sample project can be generated with the provided `sample_project.ioc`.
 2. Make sure that your STM32CubeMX project is using a `Makefile` toolchain under `Project Manager -> Project`
 3. Make sure that if you are using FreeRTOS, the micro-ROS task **has more than 10 kB of stack**: [Detail](.images/Set_freertos_stack.jpg)
 4. Configure the transport interface on the STM32CubeMX project, check the [Transport configuration](#Transport-configuration) section for instructions on the custom transports provided.
@@ -18,16 +18,16 @@ C_SOURCES := $(filter-out Middlewares/Third_Party/FreeRTOS/Source/portable/MemMa
 #######################################
 # micro-ROS addons
 #######################################
-LDFLAGS += microros_static_library/libmicroros/libmicroros.a
-C_INCLUDES += -Imicroros_static_library/libmicroros/microros_include
+LDFLAGS += micro_ros_stm32cubemx_utils/microros_static_library/libmicroros/libmicroros.a
+C_INCLUDES += -Imicro_ros_stm32cubemx_utils/microros_static_library/libmicroros/microros_include
 
 # Add micro-ROS utils
-C_SOURCES += extra_sources/custom_memory_manager.c
-C_SOURCES += extra_sources/microros_allocators.c
-C_SOURCES += extra_sources/microros_time.c
+C_SOURCES += micro_ros_stm32cubemx_utils/extra_sources/custom_memory_manager.c
+C_SOURCES += micro_ros_stm32cubemx_utils/extra_sources/microros_allocators.c
+C_SOURCES += micro_ros_stm32cubemx_utils/extra_sources/microros_time.c
 
 # Set here the custom transport implementation
-C_SOURCES += extra_sources/microros_transports/dma_transport.c
+C_SOURCES += micro_ros_stm32cubemx_utils/extra_sources/microros_transports/dma_transport.c
 
 print_cflags:
 	@echo $(CFLAGS)
@@ -38,8 +38,7 @@ print_cflags:
 
 ```bash
 docker pull microros/micro_ros_static_library_builder:foxy
-docker run -it --rm -v $(pwd):/project microros/micro_ros_static_library_builder:foxy
-cd ..
+docker run -it --rm -v $(pwd):/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library microros/micro_ros_static_library_builder:foxy
 ```
 
 1. Modify your `main.c` to use micro-ROS. An example application can be found in `sample_main.c`.
