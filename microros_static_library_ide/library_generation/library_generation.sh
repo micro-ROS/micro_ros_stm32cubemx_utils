@@ -74,6 +74,13 @@ mkdir -p $BASE_PATH/libmicroros/include
 cp -R firmware/build/include/* $BASE_PATH/libmicroros/include/
 cp -R firmware/build/libmicroros.a $BASE_PATH/libmicroros/libmicroros.a
 
+######## Fix include paths  ########
+INCLUDE_ROS2_PACKAGES=( rmw rcl rcl_action rcl_lifecycle rcl_logging_interface )
+for var in "${INCLUDE_ROS2_PACKAGES[@]}"; do
+    mv $BASE_PATH/libmicroros/include/${var}/${var}/* $BASE_PATH/libmicroros/include/${var}
+    rm -rf $BASE_PATH/libmicroros/include/${var}/${var}
+done
+
 ######## Generate extra files ########
 find firmware/mcu_ws/ros2 \( -name "*.srv" -o -name "*.msg" -o -name "*.action" \) | awk -F"/" '{print $(NF-2)"/"$NF}' > $BASE_PATH/libmicroros/available_ros2_types
 find firmware/mcu_ws/extra_packages \( -name "*.srv" -o -name "*.msg" -o -name "*.action" \) | awk -F"/" '{print $(NF-2)"/"$NF}' >> $BASE_PATH/libmicroros/available_ros2_types
