@@ -75,7 +75,7 @@ cp -R firmware/build/include/* $BASE_PATH/libmicroros/include/
 cp -R firmware/build/libmicroros.a $BASE_PATH/libmicroros/libmicroros.a
 
 ######## Fix include paths  ########
-INCLUDE_ROS2_PACKAGES=( rmw rcl rcl_action rcl_lifecycle rcl_logging_interface )
+INCLUDE_ROS2_PACKAGES=( rmw rcl rcl_action rcl_lifecycle rcl_logging_interface rosidl_runtime_c rosidl_typesupport_interface)
 for var in "${INCLUDE_ROS2_PACKAGES[@]}"; do
     mv $BASE_PATH/libmicroros/include/${var}/${var}/* $BASE_PATH/libmicroros/include/${var}
     rm -rf $BASE_PATH/libmicroros/include/${var}/${var}
