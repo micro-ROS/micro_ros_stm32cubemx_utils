@@ -294,7 +294,7 @@ void *pvPortReallocMicroROS( void *pv, size_t xWantedSize )
 	vTaskSuspendAll();
 
 	void * newmem = pvPortMallocMicroROS(xWantedSize);
-	if (newmem != NULL)
+	if (newmem != NULL && pv != NULL)
 	{
 		size_t count = getBlockSize(pv) - xHeapStructSize;
 		if (xWantedSize < count)
