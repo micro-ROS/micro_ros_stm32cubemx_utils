@@ -79,10 +79,11 @@ pushd firmware/mcu_ws > /dev/null
     INCLUDE_ROS2_PACKAGES=$(colcon list | awk '{print $1}' | awk -v d=" " '{s=(NR==1?s:s d)$0}END{print s}')
 popd > /dev/null
 
-apt -y install rsync
 for var in ${INCLUDE_ROS2_PACKAGES}; do
-    rsync -r $BASE_PATH/libmicroros/include/${var}/${var}/* $BASE_PATH/libmicroros/include/${var}
-    rm -rf $BASE_PATH/libmicroros/include/${var}/${var}
+    if [ -d "$BASE_PATH/libmicroros/include/${var}/${var}" ]; then
+        rsync -r $BASE_PATH/libmicroros/include/${var}/${var}/* $BASE_PATH/libmicroros/include/${var}
+        rm -rf $BASE_PATH/libmicroros/include/${var}/${var}
+    fi
 done
 
 ######## Generate extra files ########
