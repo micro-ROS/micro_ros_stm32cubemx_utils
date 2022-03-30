@@ -74,6 +74,18 @@ mkdir -p $BASE_PATH/libmicroros/include
 cp -R firmware/build/include/* $BASE_PATH/libmicroros/include/
 cp -R firmware/build/libmicroros.a $BASE_PATH/libmicroros/libmicroros.a
 
+######## Fix include paths  ########
+pushd firmware/mcu_ws > /dev/null
+    INCLUDE_ROS2_PACKAGES=$(colcon list | awk '{print $1}' | awk -v d=" " '{s=(NR==1?s:s d)$0}END{print s}')
+popd > /dev/null
+
+for var in ${INCLUDE_ROS2_PACKAGES}; do
+    if [ -d "$BASE_PATH/libmicroros/include/${var}/${var}" ]; then
+        rsync -r $BASE_PATH/libmicroros/include/${var}/${var}/* $BASE_PATH/libmicroros/include/${var}
+        rm -rf $BASE_PATH/libmicroros/include/${var}/${var}
+    fi
+done
+
 ######## Generate extra files ########
 find firmware/mcu_ws/ros2 \( -name "*.srv" -o -name "*.msg" -o -name "*.action" \) | awk -F"/" '{print $(NF-2)"/"$NF}' > $BASE_PATH/libmicroros/available_ros2_types
 find firmware/mcu_ws/extra_packages \( -name "*.srv" -o -name "*.msg" -o -name "*.action" \) | awk -F"/" '{print $(NF-2)"/"$NF}' >> $BASE_PATH/libmicroros/available_ros2_types

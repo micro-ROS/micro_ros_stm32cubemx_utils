@@ -5,7 +5,7 @@ export BASE_PATH=/project/$MICROROS_LIBRARY_FOLDER
 
 ######## Init ########
 
-apt update 
+apt update
 apt install -y gcc-arm-none-eabi
 
 cd /uros_ws
@@ -64,8 +64,20 @@ ros2 run micro_ros_setup build_firmware.sh $BASE_PATH/library_generation/toolcha
 find firmware/build/include/ -name "*.c"  -delete
 rm -rf $BASE_PATH/libmicroros
 mkdir -p $BASE_PATH/libmicroros/microros_include
-cp -R firmware/build/include/* $BASE_PATH/libmicroros/microros_include/ 
+cp -R firmware/build/include/* $BASE_PATH/libmicroros/microros_include/
 cp -R firmware/build/libmicroros.a $BASE_PATH/libmicroros/libmicroros.a
+
+######## Fix include paths  ########
+pushd firmware/mcu_ws > /dev/null
+    INCLUDE_ROS2_PACKAGES=$(colcon list | awk '{print $1}' | awk -v d=" " '{s=(NR==1?s:s d)$0}END{print s}')
+popd > /dev/null
+
+for var in ${INCLUDE_ROS2_PACKAGES}; do
+    if [ -d "$BASE_PATH/libmicroros/microros_include/${var}/${var}" ]; then
+        rsync -r $BASE_PATH/libmicroros/microros_include/${var}/${var}/* $BASE_PATH/libmicroros/microros_include/${var}
+        rm -rf $BASE_PATH/libmicroros/microros_include/${var}/${var}
+    fi
+done
 
 ######## Generate extra files ########
 find firmware/mcu_ws/ros2 \( -name "*.srv" -o -name "*.msg" -o -name "*.action" \) | awk -F"/" '{print $(NF-2)"/"$NF}' > $BASE_PATH/libmicroros/available_ros2_types
@@ -76,6 +88,6 @@ echo "" > $BASE_PATH/libmicroros/built_packages
 for f in $(find $(pwd) -name .git -type d); do pushd $f > /dev/null; echo $(git config --get remote.origin.url) $(git rev-parse HEAD) >> $BASE_PATH/libmicroros/built_packages; popd > /dev/null; done;
 
 ######## Fix permissions ########
-sudo chmod -R 777 $BASE_PATH/libmicroros/ 
-sudo chmod -R 777 $BASE_PATH/libmicroros/microros_include/ 
+sudo chmod -R 777 $BASE_PATH/libmicroros/
+sudo chmod -R 777 $BASE_PATH/libmicroros/microros_include/
 sudo chmod -R 777 $BASE_PATH/libmicroros/libmicroros.a
