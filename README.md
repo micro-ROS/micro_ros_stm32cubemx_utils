@@ -1,8 +1,29 @@
-# micro-ROS for STM32CubeMX
+![banner](.images/banner-dark-theme.png#gh-dark-mode-only)
+![banner](.images/banner-light-theme.png#gh-light-mode-only)
 
-This tool aims to ease the micro-ROS integration in a STM32CubeMX project.
+# micro-ROS for STM32CubeMX/IDE
 
-## How to use it
+This tool aims to ease the micro-ROS integration in a STM32CubeMX/IDE project.
+
+- [micro-ROS for STM32CubeMX/IDE](#micro-ros-for-stm32cubemxide)
+  - [Middlewares available](#middlewares-available)
+  - [Using this package with STM32CubeMX](#using-this-package-with-stm32cubemx)
+  - [Transport configuration](#transport-configuration)
+    - [U(S)ART with DMA](#usart-with-dma)
+    - [U(S)ART with Interrupts](#usart-with-interrupts)
+  - [Customizing the micro-ROS library](#customizing-the-micro-ros-library)
+  - [Adding custom packages](#adding-custom-packages)
+  - [Using this package with STM32CubeIDE](#using-this-package-with-stm32cubeide)
+  - [Purpose of the Project](#purpose-of-the-project)
+  - [License](#license)
+  - [Known Issues/Limitations](#known-issueslimitations)
+## Middlewares available
+
+This package support the usage of micro-ROS on top of two different middlewares:
+- [eProsima Micro XRCE-DDS](https://micro-xrce-dds.docs.eprosima.com/en/latest/): the default micro-ROS middleware.
+- [embeddedRTPS](https://github.com/embedded-software-laboratory/embeddedRTPS): an experimental implementation of a RTPS middleware compatible with ROS 2. **Instructions on how to use it available [here](./embeddedrtps.md).**
+
+## Using this package with STM32CubeMX
 
 1. Clone this repository in your STM32CubeMX project folder. A sample project can be generated with the provided `sample_project.ioc`.
 2. Make sure that your STM32CubeMX project is using a `Makefile` toolchain under `Project Manager -> Project`
@@ -53,7 +74,7 @@ Available transport for this platform are:
 ### U(S)ART with DMA
 
 Steps to configure:
-   - Enable U(S)ART in your STM32CubeMX 
+   - Enable U(S)ART in your STM32CubeMX
    - For the selected USART, enable DMA for Tx and Rx under `DMA Settings`
    - Set the DMA priotity to `Very High` for Tx and Rx
    - Set the DMA mode to `Circular` for Rx: [Detail](.images/Set_UART_DMA1.jpg)
@@ -62,7 +83,7 @@ Steps to configure:
 ### U(S)ART with Interrupts
 
 Steps to configure:
-   - Enable U(S)ART in your STM32CubeMX 
+   - Enable U(S)ART in your STM32CubeMX
    - For the selected USART, enable `global interrupt` under `NVIC Settings`: [Detail](.images/Set_UART_IT.jpg)
 ## Customizing the micro-ROS library
 
