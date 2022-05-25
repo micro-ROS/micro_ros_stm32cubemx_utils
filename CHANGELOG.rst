@@ -2,8 +2,8 @@
 Changelog for package micro_ros_stmcube
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+4.0.0 (2022-05-25)
+------------------
 * Update banner (`#56 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/56>`_)
 * Fix include paths (`#47 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/47>`_)
 * Add check for NULL input pointer (`#53 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/53>`_) (`#55 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/55>`_)
