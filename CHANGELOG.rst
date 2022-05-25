@@ -2,8 +2,8 @@
 Changelog for package micro_ros_stmcube
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+3.0.0 (2022-05-25)
+------------------
 * Humble release (`#61 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/61>`_)
 * Update banner (`#56 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/56>`_)
 * Fix include paths (`#47 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/47>`_)
