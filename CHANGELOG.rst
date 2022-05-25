@@ -2,8 +2,8 @@
 Changelog for package micro_ros_stmcube
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.0 (2022-05-25)
+------------------
 * Update banner (backport `#56 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/56>`_) (`#58 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/58>`_)
 * Add check for NULL input pointer (`#53 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/53>`_) (`#54 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/54>`_)
 * Fix broken pvPortReallocMicroROS() implementation (`#48 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/48>`_) (`#50 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/50>`_)
