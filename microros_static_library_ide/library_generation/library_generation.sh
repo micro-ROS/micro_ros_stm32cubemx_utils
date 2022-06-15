@@ -45,12 +45,12 @@ pushd firmware/mcu_ws > /dev/null
     # Import user defined packages
     mkdir extra_packages
     pushd extra_packages > /dev/null
-        USER_CUSTOM_PACKAGES_DIR=/project/microros_component/extra_packages 
+        USER_CUSTOM_PACKAGES_DIR=$BASE_PATH/../microros_component/extra_packages 
     	if [ -d "$USER_CUSTOM_PACKAGES_DIR" ]; then
     		cp -R $USER_CUSTOM_PACKAGES_DIR/* .
 		fi
-        if [ -f extra_packages.repos ]; then
-        	vcs import --input extra_packages.repos
+        if [ -f $USER_CUSTOM_PACKAGES_DIR/extra_packages.repos ]; then
+        	vcs import --input $USER_CUSTOM_PACKAGES_DIR/extra_packages.repos
         fi
         cp -R $BASE_PATH/library_generation/extra_packages/* .
         vcs import --input extra_packages.repos
