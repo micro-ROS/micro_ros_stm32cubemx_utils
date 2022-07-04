@@ -114,7 +114,7 @@ Steps to configure:
 All the micro-ROS configuration can be done in `colcon.meta` file before step 3. You can find detailed information about how to tune the static memory usage of the library in the [Middleware Configuration tutorial](https://micro.ros.org/docs/tutorials/advanced/microxrcedds_rmw_configuration/).
 ## Adding custom packages
 
-Note that folders added to `microros_component/extra_packages` and entries added to `microros_component/extra_packages/extra_packages.repos` will be taken into account by this build system.
+Note that folders added to `microros_static_library/library_generation/extra_packages/` and entries added to `/microros_static_library/library_generation/extra_packages/extra_packages.repos` will be taken into account by this build system.
 
 ## Purpose of the Project
 
