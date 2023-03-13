@@ -14,7 +14,7 @@ defines = list(set(defines))
 
 includes = [x for x in text if x.startswith("-I")]
 includes = list(set(includes))
-includes = [x.replace("../", "/project/") for x in includes]
+includes = [x.replace("../", "../../../") for x in includes]
 
 out = "-ffunction-sections -fdata-sections -DSTM32CUBEIDE"
 

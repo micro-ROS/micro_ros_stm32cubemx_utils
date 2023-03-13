@@ -56,7 +56,7 @@ print_cflags:
 
 6. Execute the static library generation tool. Compiler flags will retrieved automatically from your `Makefile` and user will be prompted to check if they are correct.
 
-
+<!-- TODO(acuadros95): Test with STM32CubeMX -->
 ```bash
 docker pull microros/micro_ros_static_library_builder:humble
 docker run -it --rm -v $(pwd):/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library microros/micro_ros_static_library_builder:humble
@@ -76,7 +76,7 @@ micro-ROS can be used with SMT32CubeIDE following these steps:
 2. Go to `Project -> Settings -> C/C++ Build -> Settings -> Build Steps Tab` and in `Pre-build steps` add:
 
 ```bash
-docker pull microros/micro_ros_static_library_builder:humble && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:humble
+cd ../micro_ros_stm32cubemx_utils/microros_static_library_ide/library_generation && ./library_generation.sh
 ```
 
 3. Add micro-ROS include directory. In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
