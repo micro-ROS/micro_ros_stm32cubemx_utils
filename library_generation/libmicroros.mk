@@ -10,9 +10,9 @@ else
 endif
 
 ifeq ($(MICROROS_USE_EMBEDDEDRTPS), "ON")
-META_FILE = $(COMPONENT_DIR)/colcon-embeddedrtps.meta;
+META_FILE = $(COMPONENT_DIR)/colcon-embeddedrtps.meta
 else
-META_FILE = $(COMPONENT_DIR)/colcon.meta;
+META_FILE = $(COMPONENT_DIR)/colcon.meta
 endif
 
 X_CC := arm-none-eabi-gcc

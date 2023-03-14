@@ -2,12 +2,12 @@
 set -e
 
 export BASE_PATH=$(pwd)/..
-export PROJECT_PATH=../../../
+export PROJECT_PATH=../../
 
 ######## Check existing library ########
 if [[ -f "$BASE_PATH/libmicroros/libmicroros.a" && ! -f "$USER_COLCON_META" ]]; then
     echo "micro-ROS library found. Skipping..."
-    echo "Delete microros_static_library_ide/libmicroros/ for rebuild."
+    echo "Delete libmicroros/ for rebuild."
     exit 0
 fi
 
@@ -15,11 +15,20 @@ if [ ! -f "$USER_COLCON_META" ]; then
     rm -rf $BASE_PATH/libmicroros
 fi
 
-######## Trying to retrieve CFLAGS ########
-export RET_CFLAGS=$(find $PROJECT_PATH -type f -name subdir.mk -exec cat {} \; | python3 $BASE_PATH/library_generation/extract_flags.py)
-RET_CODE=$?
+if [ "$USER_COLCON_META" ]; then
+    rm -rf $BASE_PATH/libmicroros
+fi
 
-if [ $RET_CODE = "0" ]; then
+######## Trying to retrieve CFLAGS ########
+
+if [ $(MICROROS_USE_CUBEIDE) ]; then
+    export RET_CFLAGS=$(find $PROJECT_PATH -type f -name subdir.mk -exec cat {} \; | python3 $BASE_PATH/library_generation/extract_flags.py)
+else
+    # Use CubeMX approach
+    export RET_CFLAGS=$(cd $PROJECT_PATH && make print_cflags)
+fi
+
+if [ $RET_CFLAGS != "" ]; then
     echo "Found CFLAGS:"
     echo "-------------"
     echo $RET_CFLAGS
