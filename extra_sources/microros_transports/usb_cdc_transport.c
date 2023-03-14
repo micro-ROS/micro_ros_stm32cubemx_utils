@@ -159,3 +159,5 @@ size_t cubemx_transport_read(struct uxrCustomTransport* transport, uint8_t* buf,
 
     return readed;
 }
+
+#endif
