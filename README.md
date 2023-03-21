@@ -57,18 +57,10 @@ This package support the usage of micro-ROS on top of two different middlewares:
 
 6. Execute the static library generation tool. Compiler flags will retrieved automatically from your `Makefile` and user will be prompted to check if they are correct.
 
-
-<<<<<<< HEAD
-```bash
-docker pull microros/micro_ros_static_library_builder:rolling
-docker run -it --rm -v $(pwd):/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library microros/micro_ros_static_library_builder:rolling
-```
-=======
    ```bash
-   docker pull microros/micro_ros_static_library_builder:humble
-   docker run -it --rm -v $(pwd):/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library microros/micro_ros_static_library_builder:humble
+   docker pull microros/micro_ros_static_library_builder:rolling
+   docker run -it --rm -v $(pwd):/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library microros/micro_ros_static_library_builder:rolling
    ```
->>>>>>> 3a479bc (Add USB CDC transport (#89))
 
 1. Modify your `main.c` to use micro-ROS. An example application can be found in `sample_main.c`.
 2. Continue your usual workflow building your project and flashing the binary:
@@ -84,15 +76,9 @@ micro-ROS can be used with SMT32CubeIDE following these steps:
 1. Clone this repository in your STM32CubeIDE project folder
 2. Go to `Project -> Settings -> C/C++ Build -> Settings -> Build Steps Tab` and in `Pre-build steps` add:
 
-<<<<<<< HEAD
-```bash
-docker pull microros/micro_ros_static_library_builder:rolling && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:rolling
-```
-=======
    ```bash
-   docker pull microros/micro_ros_static_library_builder:humble && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:humble
+   docker pull microros/micro_ros_static_library_builder:rolling && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:rolling
    ```
->>>>>>> 3a479bc (Add USB CDC transport (#89))
 
 3. Add micro-ROS include directory. In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
 4. Add the micro-ROS precompiled library. In `Project -> Settings -> C/C++ Build -> Settings -> MCU GCC Linker -> Libraries`
