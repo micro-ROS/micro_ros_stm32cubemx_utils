@@ -12,6 +12,7 @@ This tool aims to ease the micro-ROS integration in a STM32CubeMX/IDE project.
   - [Transport configuration](#transport-configuration)
     - [U(S)ART with DMA](#usart-with-dma)
     - [U(S)ART with Interrupts](#usart-with-interrupts)
+    - [USB CDC](#usb-cdc)
   - [Customizing the micro-ROS library](#customizing-the-micro-ros-library)
   - [Adding custom packages](#adding-custom-packages)
   - [Purpose of the Project](#purpose-of-the-project)
@@ -31,43 +32,43 @@ This package support the usage of micro-ROS on top of two different middlewares:
 4. Configure the transport interface on the STM32CubeMX project, check the [Transport configuration](#Transport-configuration) section for instructions on the custom transports provided.
 5. Modify the generated `Makefile` to include the following code **before the `build the application` section**:
 
-<!-- # Removing heap4 manager while being polite with STM32CubeMX
-TMPVAR := $(C_SOURCES)
-C_SOURCES := $(filter-out Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c, $(TMPVAR)) -->
+   <!-- # Removing heap4 manager while being polite with STM32CubeMX
+   TMPVAR := $(C_SOURCES)
+   C_SOURCES := $(filter-out Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c, $(TMPVAR)) -->
 
-```makefile
-#######################################
-# micro-ROS addons
-#######################################
-LDFLAGS += micro_ros_stm32cubemx_utils/microros_static_library/libmicroros/libmicroros.a
-C_INCLUDES += -Imicro_ros_stm32cubemx_utils/microros_static_library/libmicroros/microros_include
+   ```makefile
+   #######################################
+   # micro-ROS addons
+   #######################################
+   LDFLAGS += micro_ros_stm32cubemx_utils/microros_static_library/libmicroros/libmicroros.a
+   C_INCLUDES += -Imicro_ros_stm32cubemx_utils/microros_static_library/libmicroros/microros_include
 
-# Add micro-ROS utils
-C_SOURCES += micro_ros_stm32cubemx_utils/extra_sources/custom_memory_manager.c
-C_SOURCES += micro_ros_stm32cubemx_utils/extra_sources/microros_allocators.c
-C_SOURCES += micro_ros_stm32cubemx_utils/extra_sources/microros_time.c
+   # Add micro-ROS utils
+   C_SOURCES += micro_ros_stm32cubemx_utils/extra_sources/custom_memory_manager.c
+   C_SOURCES += micro_ros_stm32cubemx_utils/extra_sources/microros_allocators.c
+   C_SOURCES += micro_ros_stm32cubemx_utils/extra_sources/microros_time.c
 
-# Set here the custom transport implementation
-C_SOURCES += micro_ros_stm32cubemx_utils/extra_sources/microros_transports/dma_transport.c
+   # Set here the custom transport implementation
+   C_SOURCES += micro_ros_stm32cubemx_utils/extra_sources/microros_transports/dma_transport.c
 
-print_cflags:
-	@echo $(CFLAGS)
-```
+   print_cflags:
+      @echo $(CFLAGS)
+   ```
 
 6. Execute the static library generation tool. Compiler flags will retrieved automatically from your `Makefile` and user will be prompted to check if they are correct.
 
-
-```bash
-docker pull microros/micro_ros_static_library_builder:rolling
-docker run -it --rm -v $(pwd):/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library microros/micro_ros_static_library_builder:rolling
-```
+   ```bash
+   docker pull microros/micro_ros_static_library_builder:rolling
+   docker run -it --rm -v $(pwd):/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library microros/micro_ros_static_library_builder:rolling
+   ```
 
 1. Modify your `main.c` to use micro-ROS. An example application can be found in `sample_main.c`.
 2. Continue your usual workflow building your project and flashing the binary:
 
-```bash
-make -j$(nproc)
-```
+   ```bash
+   make -j$(nproc)
+   ```
+
 ## Using this package with STM32CubeIDE
 
 micro-ROS can be used with SMT32CubeIDE following these steps:
@@ -75,9 +76,9 @@ micro-ROS can be used with SMT32CubeIDE following these steps:
 1. Clone this repository in your STM32CubeIDE project folder
 2. Go to `Project -> Settings -> C/C++ Build -> Settings -> Build Steps Tab` and in `Pre-build steps` add:
 
-```bash
-docker pull microros/micro_ros_static_library_builder:rolling && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:rolling
-```
+   ```bash
+   docker pull microros/micro_ros_static_library_builder:rolling && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:rolling
+   ```
 
 3. Add micro-ROS include directory. In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
 4. Add the micro-ROS precompiled library. In `Project -> Settings -> C/C++ Build -> Settings -> MCU GCC Linker -> Libraries`
@@ -108,6 +109,14 @@ Steps to configure:
 Steps to configure:
    - Enable U(S)ART in your STM32CubeMX
    - For the selected USART, enable `global interrupt` under `NVIC Settings`: [Detail](.images/Set_UART_IT.jpg)
+
+### USB CDC
+
+Steps to configure:
+   - Enable the USB in your STM32CubeMX `Connectivity` tab.
+   - Select the `Communication Device Class (Virtual Port Com)` mode on the `Middleware -> USB_DEVICE` configuration.
+
+      **Note: The micro-ROS transport will override the autogenerated `USB_DEVICE/App/usbd_cdc_if.c` methods.**
 
 ## Customizing the micro-ROS library
 
