@@ -2,6 +2,15 @@
 Changelog for package micro_ros_stmcube
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update branches (`#101 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/101>`_)
+* Add USB CDC transport (backport `#89 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/89>`_) (`#93 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/93>`_)
+* Fix minor branches (`#81 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/81>`_)
+* Improved repository clarity (`#74 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/74>`_) (`#75 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/75>`_)
+* Fix USER_CUSTOM_PACKAGES_DIR (`#67 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/67>`_) (`#68 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/68>`_)
+* microros_component/extra_packages support (`#63 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/63>`_) (`#66 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/66>`_)
+
 4.0.0 (2022-05-25)
 ------------------
 * Update banner (`#56 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/56>`_)
