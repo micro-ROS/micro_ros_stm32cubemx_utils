@@ -2,8 +2,8 @@
 Changelog for package micro_ros_stmcube
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+4.1.0 (2023-06-12)
+------------------
 * Update branches (`#101 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/101>`_)
 * Add USB CDC transport (backport `#89 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/89>`_) (`#93 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/93>`_)
 * Fix minor branches (`#81 <https://github.com/micro-ROS/micro_ros_stm32cubemx_utils/issues/81>`_)
