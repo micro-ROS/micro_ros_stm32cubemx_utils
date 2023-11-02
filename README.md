@@ -9,7 +9,7 @@ This tool aims to ease the micro-ROS integration in a STM32CubeMX/IDE project.
   - [Middlewares available](#middlewares-available)
   - [Using this package with STM32CubeMX](#using-this-package-with-stm32cubemx)
   - [Using this package with STM32CubeIDE](#using-this-package-with-stm32cubeide)
-      - [Windows 11](#STM32CubeIDE-Win11)
+      - [Windows 11 (Community Contributed)](#STM32CubeIDE-Win11)
   - [Transport configuration](#transport-configuration)
     - [U(S)ART with DMA](#usart-with-dma)
     - [U(S)ART with Interrupts](#usart-with-interrupts)
