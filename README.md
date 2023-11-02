@@ -94,7 +94,7 @@ micro-ROS can be used with SMT32CubeIDE following these steps:
 7. Configure the transport interface on the STM32CubeMX project, check the [Transport configuration](#Transport-configuration) section for instructions on the custom transports provided.
 8. Build and run your project
 
-### Windows 11
+### Windows 11 (Community Contributed)
 
 micro-ROS can be used with SMT32CubeIDE in Windows 11 OS, following these steps:
 
