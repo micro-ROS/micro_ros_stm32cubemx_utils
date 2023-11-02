@@ -106,7 +106,7 @@ micro-ROS can be used with SMT32CubeIDE in Windows 11 OS, following these steps:
    docker run --rm -v <ABSOLUTE_PATH_TO_PROJECT>:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:humble
    ```
 Follow steps 4 to 8.
-Noticed that thist steps where tested with ROS humble, but should work on any distribution. microROS agent could be build and run in Ubuntu using WSL.
+Noticed that thist steps where tested with ROS 2 Humble, but should work on any distribution. micro-ROS Agent could be build and run in Ubuntu using WSL.
 
 ## Transport configuration
 
