@@ -9,6 +9,7 @@ This tool aims to ease the micro-ROS integration in a STM32CubeMX/IDE project.
   - [Middlewares available](#middlewares-available)
   - [Using this package with STM32CubeMX](#using-this-package-with-stm32cubemx)
   - [Using this package with STM32CubeIDE](#using-this-package-with-stm32cubeide)
+      - [Windows 11 (Community Contributed)](#STM32CubeIDE-Win11)
   - [Transport configuration](#transport-configuration)
     - [U(S)ART with DMA](#usart-with-dma)
     - [U(S)ART with Interrupts](#usart-with-interrupts)
@@ -92,6 +93,21 @@ micro-ROS can be used with SMT32CubeIDE following these steps:
 6. Make sure that if you are using FreeRTOS, the micro-ROS task **has more than 10 kB of stack**: [Detail](.images/Set_freertos_stack.jpg)
 7. Configure the transport interface on the STM32CubeMX project, check the [Transport configuration](#Transport-configuration) section for instructions on the custom transports provided.
 8. Build and run your project
+
+### Windows 11 (Community Contributed)
+
+micro-ROS can be used with SMT32CubeIDE in Windows 11 OS, following these steps:
+
+1. Install Docker Desktop and open it
+2. Clone this repository in your STM32CubeIDE project folder
+3. Open a terminal in the project folder and run:
+   ```bash
+   docker pull microros/micro_ros_static_library_builder:humble
+   docker run --rm -v <ABSOLUTE_PATH_TO_PROJECT>:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:humble
+   ```
+Follow steps 4 to 8.
+Noticed that thist steps where tested with ROS 2 Humble, but should work on any distribution. micro-ROS Agent could be build and run in Ubuntu using WSL.
+
 ## Transport configuration
 
 Available transport for this platform are:
