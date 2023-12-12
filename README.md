@@ -141,11 +141,19 @@ Steps to configure:
    - Enable the ETH in your STM32CubeMX/IDE `Connectivity` tab.
    - Enable the LWIP in your STM32CubeMX/IDE `Middleware` tab.
    - Make sure that LwIP has the following configuration:
-   `Platform Setting according to your own board`
-   `LwIP -> General Settings -> LWIP_DHCP -> Disabled`
-   `LwIP -> General Settings -> IP Address Settings (Set here the board address and mask)`
-   `LwIP -> General Settings -> LWIP UDP -> Enabled`
-   `LwIP -> General Settings -> Procols Options -> MEMP_NUM_UDP_PCB -> 15`
+
+      `Platform Setting according to your own board`
+
+      `LwIP -> General Settings -> LWIP_DHCP -> Disabled`
+
+      `LwIP -> General Settings -> IP Address Settings (Set here the board address and mask)`
+
+      `LwIP -> General Settings -> LWIP UDP -> Enabled`
+
+      `LwIP -> General Settings -> Procols Options -> MEMP_NUM_UDP_PCB -> 15`
+      
+      `LwIP -> Key Options -> LWIP_SO_RCVTIMEO -> Enable`
+
    **Note: Ensure your board and Agent are within the same LAN. The default port is 8888. You can modify it in `udp_transport.c`.If you are using a board from the STM32H7 series, please set up the MPU correctly.**
    - Use `sample_main_udp.c` as reference for writing you application code.
    - start your Agent with:
