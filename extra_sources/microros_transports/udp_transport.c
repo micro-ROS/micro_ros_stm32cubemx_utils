@@ -65,8 +65,6 @@ size_t cubemx_transport_write(struct uxrCustomTransport* transport, uint8_t * bu
 
 size_t cubemx_transport_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err){
 
-    struct sockaddr_in addr;
-    socklen_t addr_len = sizeof(addr);
     int ret = 0;
     //set timeout
     struct timeval tv_out;
