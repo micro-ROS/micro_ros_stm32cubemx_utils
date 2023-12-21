@@ -47,7 +47,7 @@ bool cubemx_transport_close(struct uxrCustomTransport * transport){
 }
 
 size_t cubemx_transport_write(struct uxrCustomTransport* transport, uint8_t * buf, size_t len, uint8_t * err){
-	if (sock_fd == -1)
+    if (sock_fd == -1)
     {
         return 0;
     }
@@ -60,7 +60,7 @@ size_t cubemx_transport_write(struct uxrCustomTransport* transport, uint8_t * bu
     ret = sendto(sock_fd, buf, len, 0, (struct sockaddr *)&addr, sizeof(addr));
     size_t writed = ret>0? ret:0;
 
-	return writed;
+    return writed;
 }
 
 size_t cubemx_transport_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err){
@@ -70,11 +70,11 @@ size_t cubemx_transport_read(struct uxrCustomTransport* transport, uint8_t* buf,
     int ret = 0;
     //set timeout
     struct timeval tv_out;
-    tv_out.tv_sec = 0;
-    tv_out.tv_usec = timeout * 1000;
+    tv_out.tv_sec = timeout / 1000;
+    tv_out.tv_usec = (timeout % 1000) * 1000;
     setsockopt(sock_fd, SOL_SOCKET, SO_RCVTIMEO,&tv_out, sizeof(tv_out));
     ret = recv(sock_fd, buf, len, MSG_WAITALL);
-    size_t readed = ret>0? ret:0;
+    size_t readed = ret > 0 ? ret : 0;
     return readed;
 }
 
