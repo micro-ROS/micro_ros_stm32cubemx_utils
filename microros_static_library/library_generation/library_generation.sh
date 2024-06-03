@@ -19,14 +19,14 @@ ros2 run micro_ros_setup create_firmware_ws.sh generate_lib
 pushd firmware/mcu_ws > /dev/null
 
     # Workaround: Copy just tf2_msgs
-    git clone -b rolling https://github.com/ros2/geometry2
+    git clone -b jazzy https://github.com/ros2/geometry2
     cp -R geometry2/tf2_msgs ros2/tf2_msgs
     rm -rf geometry2
 
     # Import user defined packages
     mkdir extra_packages
     pushd extra_packages > /dev/null
-    	USER_CUSTOM_PACKAGES_DIR=$BASE_PATH/../../microros_component/extra_packages 
+    	USER_CUSTOM_PACKAGES_DIR=$BASE_PATH/../../microros_component/extra_packages
     	if [ -d "$USER_CUSTOM_PACKAGES_DIR" ]; then
     		cp -R $USER_CUSTOM_PACKAGES_DIR/* .
 		fi
