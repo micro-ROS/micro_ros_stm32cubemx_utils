@@ -2,4 +2,8 @@ repositories:
   control_msgs:
     type: git
     url: https://github.com/ros-controls/control_msgs
+<<<<<<< HEAD
     version: foxy-devel
+=======
+    version: master
+>>>>>>> 1a1a8a9 (Bump `control_msgs` version in `extra_packages.repos` to master (#156))
