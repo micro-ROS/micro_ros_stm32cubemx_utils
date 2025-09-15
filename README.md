@@ -76,15 +76,15 @@ This package support the usage of micro-ROS on top of two different middlewares:
 micro-ROS can be used with SMT32CubeIDE following these steps:
 
 1. Clone this repository in your STM32CubeIDE project folder
-2. Go to `Project -> Settings -> C/C++ Build -> Settings -> Build Steps Tab` and in `Pre-build steps` add:
+2. Go to `Project -> Properties -> C/C++ Build -> Settings -> Build Steps Tab` and in `Pre-build steps` add:
 
    ```bash
    docker pull microros/micro_ros_static_library_builder:jazzy && docker run --rm -v ${workspace_loc:/${ProjName}}:/project --env MICROROS_LIBRARY_FOLDER=micro_ros_stm32cubemx_utils/microros_static_library_ide microros/micro_ros_static_library_builder:jazzy
    ```
 
-3. Add micro-ROS include directory. In `Project -> Settings -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
-4. Add the micro-ROS precompiled library. In `Project -> Settings -> C/C++ Build -> Settings -> MCU GCC Linker -> Libraries`
-      - add `<ABSOLUTE_PATH_TO>/micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros` in `Library search path (-L)`
+3. Add micro-ROS include directory. In `Project -> Properties -> C/C++ Build -> Settings -> Tool Settings Tab -> MCU GCC Compiler -> Include paths` add `${ProjDirPath}/micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros/include`
+4. Add the micro-ROS precompiled library. In `Project -> Properties -> C/C++ Build -> Settings -> MCU GCC Linker -> Libraries`
+      - add `${ProjDirPath}/micro_ros_stm32cubemx_utils/microros_static_library_ide/libmicroros` in `Library search path (-L)`
       - add `microros` in `Libraries (-l)`
 5. Add the following source code files to your project, dragging them to source folder:
       - `extra_sources/microros_time.c`
