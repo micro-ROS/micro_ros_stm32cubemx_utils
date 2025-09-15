@@ -1,0 +1,3 @@
+sensor_msgs/Imu imu_calib
+---
+bool success
